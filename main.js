@@ -321,3 +321,43 @@ container.insertAdjacentHTML('afterbegin', htmlExample2)
 // ============ ToDo task`s list =========
 /*
 */
+
+const todoList = document.querySelector('#todo-list')
+const todoForm = document.querySelector('#todo-form')
+const todoInput = document.querySelector('#todo-input')
+
+
+todoForm.addEventListener('submit', formHandler)
+
+function formHandler(event) {
+    event.preventDefault()//отменяем стандартное поведение формы при подписке
+    //console.log('Submit!')
+    const taskText = todoInput.value
+
+    //method number one
+    // const htmlLi = `<li>${taskText}</li>`
+    // todoList.insertAdjacentHTML('beforeend', htmlLi)
+    // todoInput.value = ''
+
+    const newTask = document.createElement('li')
+    newTask.textContent = taskText
+
+    //создаём кнопку удалить для li
+    const deleteButton = document.createElement('button')
+    deleteButton.setAttribute('role', 'button')
+    deleteButton.textContent = 'Delete'
+    deleteButton.style['marginLeft'] = '15px'
+    newTask.append(deleteButton)
+
+    deleteButton.addEventListener('click', () => {
+        this.closest('li').remove()
+    })
+     
+    todoList.append(newTask)
+
+    //очищаем поле ввода
+    todoInput.value = ''
+
+    //фокус на поле ввода
+    todoInput.focus()
+}
