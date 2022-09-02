@@ -320,7 +320,7 @@ container.insertAdjacentHTML('afterbegin', htmlExample2)
 
 // ============ ToDo task`s list =========
 /*
-*/
+
 
 const todoList = document.querySelector('#todo-list')
 const todoForm = document.querySelector('#todo-form')
@@ -361,3 +361,34 @@ function formHandler(event) {
     //фокус на поле ввода
     todoInput.focus()
 }
+*/
+
+// ============ setInterval =========
+
+/*
+const timerIntervalID = setInterval(function(){
+    console.log('Fired!')
+}, 1000)
+
+//console.log(timerIntervalID)
+
+//clearInterval(timerIntervalID)
+*/
+
+// ============ setTimeout =========
+
+/*
+const timerID = setTimeout(function(){
+    console.log('setTimeout Fired!')
+}, 5000)
+
+clearInterval(timerID)
+*/
+
+const timerIntervalID = setInterval(function(){
+    console.log('setInterval Fired!')
+}, 1000)
+
+const timerID = setTimeout(function(){
+    clearInterval(timerIntervalID)
+}, 10100)
