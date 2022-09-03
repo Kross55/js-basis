@@ -422,3 +422,189 @@ btnReset.onclick = function() {
     counterUI.textContent = counter
 } 
  */
+
+// ============ Callback, Callback hell =========
+/*
+//first example
+setTimeout(function(){
+    console.log('Step 1')
+}, 2000)
+
+setTimeout(function(){
+    console.log('Step 2')
+}, 1500)
+
+setTimeout(function(){
+    console.log('Step 3')
+}, 1000)
+
+setTimeout(function(){
+    console.log('Step 1')
+    setTimeout(function(){
+        console.log('Step 2')
+        setTimeout(function(){
+            console.log('Step 3')
+        }, 1000)
+    }, 1500)
+}, 2000)
+
+
+//second example
+function checkRooms() {
+    setTimeout(function(){
+        console.log('Find available rooms in hotel!')
+    const availableRooms = true
+    return availableRooms
+    }, 1000)
+}
+
+if(checkRooms()){
+    console.log('There are available rooms!')
+    console.log('Lets go to vication!')
+} else {
+    console.log('There isn`t any empty room!')
+    console.log('Vication canceled :(')
+}
+
+function checkRooms() {
+    setTimeout(function () {
+        console.log('Find available rooms in hotel!')
+        const availableRooms = true
+
+        if (availableRooms) {
+            console.log('There are available rooms!')
+            console.log('Lets go to vication!')
+        } else {
+            console.log('There isn`t any empty room!')
+            console.log('Vication canceled :(')
+        }
+    }, 1000)
+}
+
+checkRooms()
+
+//third example
+
+function checkRooms() {
+    setTimeout(function () {
+        console.log('Find available rooms in hotel!')
+        const availableRooms = true
+
+        if (availableRooms) {
+            
+        } else {
+            
+        }
+    }, 1000)
+}
+*/
+
+// ============ Promises =========
+/*
+
+let message
+
+const myPromise = new Promise(function(resolve, reject){
+    console.log('Promise created')
+    setTimeout(function(){
+        const response = true;
+         
+        if(response){
+            let message = "SUCCESS"
+            resolve(message);
+        } else {
+            let message = "FAILED"
+            reject(message)
+        }
+    }, 1000)
+})
+
+// myPromise.then(function(data){
+//     console.log(`Then ${message}`)
+//     console.log(data)
+// }).catch(function(){
+//     console.log(`Catch ${message}`)
+// })
+
+// ====== Без задержки =======
+// myPromise.then(function(data){
+//     console.log(`Then 1`)
+//     console.log(data)
+//     return 'Data from then 1'
+// }).then(function(data){
+//     console.log('Then 2')
+//     console.log(data)
+// })
+// .catch(function(data){
+//     console.log(`Catch`)
+//     console.log(data)
+// })
+
+// ====== С задержкой =======
+myPromise.then(function(data){ 
+
+    return new Promise(function(resolve, reject){
+        setTimeout(() => {
+            console.log(`Then 1`)
+            console.log(data)
+
+            const response = false
+
+            if(response){
+                resolve('Data from then 1')
+            } else {
+                reject('Data from then 1')
+            }
+        }, 2000)
+    })
+    
+}).then(function(data){
+    console.log('Then 2')
+    console.log(data)
+})
+.catch(function(data){
+    console.log(`Catch`)
+    console.log(data)
+})
+*/
+
+// ===== Цепочка промисовю Несколько промисов с setTimeout ======
+/*
+ */
+
+const checkRooms = new Promise(function(resolve, reject){
+    setTimeout(function(){
+        console.log('Looking for available rooms...')
+        const availableRooms = true
+
+        if(availableRooms){
+            resolve('Available rooms exist!')
+        } else {
+            reject('there isn`t any available room :(')
+        }
+    }, 1500)
+})
+
+checkRooms.then(function(data){
+    
+    return new Promise(function(resolve, reject){
+        setTimeout(() => {
+            console.log('Проверяем авиабилеты...')
+            const availablTickets = true
+
+        if(availablTickets){
+            resolve('Available tickets exist!')
+        } else {
+            reject('there isn`t any available tickets :(')
+        }
+        }, 2000)
+    })
+}).then(function(data){
+    console.log('---- then 2 ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Едем в отпуск! :)')
+}).catch(function(data){
+    console.log('---- catch ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Отпуск отменяется! :(')
+})
