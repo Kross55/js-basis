@@ -663,3 +663,64 @@ function failed(data) {
     console.log('Отпуск отменяется! :(')
 }
  */
+
+// ===== async/await ======
+/*
+ */
+
+function checkRooms() {
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            console.log('Проверяем наличие свободных номеров в гостиннице...')
+            const availableRooms = false
+    
+            if(availableRooms){
+                resolve('Available rooms exist!')
+            } else {
+                reject('there isn`t any available room :(')
+            }
+        }, 2000)
+    })
+}
+
+function checkTicket(data) {   
+    return new Promise(function(resolve, reject){
+        setTimeout(() => {
+            console.log('---- then 1 ----')
+            console.log('Ответ на предидущем шаге:', data)
+            console.log('Проверяем авиабилеты...')
+            const availablTickets = true
+
+        if(availablTickets){
+            resolve('Available tickets exist!')
+        } else {
+            reject('there isn`t any available tickets :(')
+        }
+        }, 2000)
+    })
+}
+
+function submitVacation(data) {
+    console.log('---- success ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Едем в отпуск! :)')
+}
+
+function cancelVacation(data) {
+    console.log('---- failed ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Отпуск отменяется! :(')
+}
+
+async function checkVacation(){
+    try {
+        const roomsResult = await checkRooms()
+        const ticketsResult = await checkTicket(roomsResult)
+        submitVacation(ticketsResult)
+    } catch (err) {
+        cancelVacation(err)
+    }
+}
+
+checkVacation()
+
