@@ -570,11 +570,9 @@ myPromise.then(function(data){
 
 // ===== Цепочка промисовю Несколько промисов с setTimeout ======
 /*
- */
-
 const checkRooms = new Promise(function(resolve, reject){
     setTimeout(function(){
-        console.log('Looking for available rooms...')
+        console.log('Проверяем наличие свободных номеров в гостиннице...')
         const availableRooms = true
 
         if(availableRooms){
@@ -582,13 +580,15 @@ const checkRooms = new Promise(function(resolve, reject){
         } else {
             reject('there isn`t any available room :(')
         }
-    }, 1500)
+    }, 2000)
 })
 
 checkRooms.then(function(data){
     
     return new Promise(function(resolve, reject){
         setTimeout(() => {
+            console.log('---- then 1 ----')
+            console.log('Ответ на предидущем шаге:', data)
             console.log('Проверяем авиабилеты...')
             const availablTickets = true
 
@@ -608,3 +608,58 @@ checkRooms.then(function(data){
     console.log('Ответ на предидущем шаге:', data)
     console.log('Отпуск отменяется! :(')
 })
+ */
+
+
+// ===== Цепочка промисов. Отдельные ф-ции. Несколько промисов с setTimeout======
+/*
+
+checkRooms()
+    .then(checkTicket)
+    .then(success)
+    .catch(failed)
+
+function checkRooms() {
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            console.log('Проверяем наличие свободных номеров в гостиннице...')
+            const availableRooms = true
+    
+            if(availableRooms){
+                resolve('Available rooms exist!')
+            } else {
+                reject('there isn`t any available room :(')
+            }
+        }, 2000)
+    })
+}
+
+function checkTicket(data) {   
+    return new Promise(function(resolve, reject){
+        setTimeout(() => {
+            console.log('---- then 1 ----')
+            console.log('Ответ на предидущем шаге:', data)
+            console.log('Проверяем авиабилеты...')
+            const availablTickets = true
+
+        if(availablTickets){
+            resolve('Available tickets exist!')
+        } else {
+            reject('there isn`t any available tickets :(')
+        }
+        }, 2000)
+    })
+}
+
+function success(data) {
+    console.log('---- success ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Едем в отпуск! :)')
+}
+
+function failed(data) {
+    console.log('---- failed ----')
+    console.log('Ответ на предидущем шаге:', data)
+    console.log('Отпуск отменяется! :(')
+}
+ */
