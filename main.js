@@ -322,8 +322,8 @@ container.insertAdjacentHTML('afterbegin', htmlExample2)
 /*
 
 
-const todoList = document.querySelector('#todo-list')
-const todoForm = document.querySelector('#todo-form')
+const todoList  = document.querySelector('#todo-list')
+const todoForm  = document.querySelector('#todo-form')
 const todoInput = document.querySelector('#todo-input')
 
 
@@ -383,7 +383,7 @@ const timerID = setTimeout(function(){
 }, 5000)
 
 clearInterval(timerID)
-*/
+
 
 const timerIntervalID = setInterval(function(){
     console.log('setInterval Fired!')
@@ -392,3 +392,33 @@ const timerIntervalID = setInterval(function(){
 const timerID = setTimeout(function(){
     clearInterval(timerIntervalID)
 }, 10100)
+*/
+
+// ============ Timer =========
+/*
+const counterUI = document.querySelector('#counter')
+let counter = 0
+let timerID
+
+const btnStart = document.querySelector('#start')
+btnStart.onclick = function() {
+    timerID = setInterval(function(){
+        counter = counter + 1 
+        // counter =+ 1
+        // counter++ 
+        counterUI.textContent = counter    
+    }, 1000) 
+}   
+
+const btnPause = document.querySelector('#pause');
+btnPause.onclick = function() {
+    clearInterval(timerID);
+}
+
+const btnReset = document.querySelector('#reset')
+btnReset.onclick = function() {
+    clearInterval(timerID)
+    counter = 0
+    counterUI.textContent = counter
+} 
+ */
