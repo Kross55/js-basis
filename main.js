@@ -666,7 +666,7 @@ function failed(data) {
 
 // ===== async/await ======
 /*
- */
+
 
 function checkRooms() {
     return new Promise(function(resolve, reject){
@@ -723,4 +723,67 @@ async function checkVacation(){
 }
 
 checkVacation()
+ */
+
+// ===== Курс валют. Получаем данные с сервера then ======
+/*
+// с помощью then
+fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+    .then(function(data){
+        return  data.json()
+    }).then(function(data){
+        console.log(data)
+    })
+*/
+
+// ==== Курс валют. Получаем данные с сервера async/await ===
+/* 
+async function getCurrencies () {
+    const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+    const data = await response.json()
+    
+    // console.log(data.Valute.USD.Value.toFixed(2))
+    // console.log(data.Valute.EUR.Value.toFixed(2))
+    // toFixed ограничивает количество знаков псле запятой
+
+    // достаём курсы из сервера
+    const usdRate = data.Valute.USD.Value.toFixed(2)
+    const eurRate = data.Valute.EUR.Value.toFixed(2)
+
+    // Отображаем элементы на странице
+    const usdElement = document.querySelector('#usd')
+    usdElement.textContent = usdRate
+    const eurElement = document.querySelector('#eur')
+    eurElement.textContent = eurRate
+}
+
+getCurrencies ()
+*/
+
+// ==== Курс валют. Получаем данные с сервера async/await 2 ===
+
+async function getCurrencies () {
+    // 1. получаем данные с сервера
+    const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+    const data = await response.json()
+
+    // 2. отображаем эти данные на странице
+    renderRates(data)
+}
+
+getCurrencies ()
+
+// вынесли работу со страницей в отдельную ф-цию
+function renderRates(data) {
+    // достаём курсы из сервера
+    const usdRate = data.Valute.USD.Value.toFixed(2);
+    const eurRate = data.Valute.EUR.Value.toFixed(2);
+
+    // Отображаем элементы на странице
+    const usdElement = document.querySelector("#usd");
+    const eurElement = document.querySelector("#eur");
+    
+    usdElement.textContent = usdRate;
+    eurElement.textContent = eurRate;
+}
 
