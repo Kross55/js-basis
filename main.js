@@ -69,7 +69,121 @@ for (let letter of letters) {
 const letters = ['a', 'd', 'v', 'q', 'f'];
 
 letters.forEach((letter, index) => console.log(`${index} -> ${letter} + ${letter} - ${index}`))
+
+["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
+    alert(`${item} имеет позицию ${index} в ${array}`);
+});
 */
+
+// ======= Masive methods - splice =======
+/*
+
+array.splice(index[deleteCount, elem1, ..., elemN])
+// let arr = ["Я", "изучаю", "JavaScript"];
+// arr.splice(1, 1); // начиная с позиции 1, удалить 1 элемент
+// console.log(arr); // осталось ["Я", "JavaScript"]
+
+// let arr = ["Я", "изучаю", "JavaScript", "прямо", "сейчас"];
+// // удалить 3 первых элемента и заменить их другими
+// arr.splice(0, 3, "Давай", "танцевать");
+// alert( arr ) // теперь ["Давай", "танцевать", "прямо", "сейчас"]
+
+// let arr = ["Я", "изучаю", "JavaScript", "прямо", "сейчас"];
+// // удалить 2 первых элемента
+// let removed = arr.splice(0, 2);
+// alert( removed ); // "Я", "изучаю" <-- массив из удалённых элементов
+
+// let arr = ["Я", "изучаю", "JavaScript"];
+// // с позиции 2
+// // удалить 0 элементов
+// // вставить "сложный", "язык"
+// arr.splice(2, 0, "сложный", "язык");
+// alert( arr ); // "Я", "изучаю", "сложный", "язык", "JavaScript"
+
+let arr = [1, 2, 5];
+// начиная с индекса -1 (перед последним элементом)
+// удалить 0 элементов,
+// затем вставить числа 3 и 4
+arr.splice(-1, 0, 'three', 'four');
+alert( arr ); // 1,2,'three','four',5
+*/
+
+// ======= Masive methods - slice =======
+/*
+
+//array.slice([start], [end])
+
+let arr = ["t", "e", "s", "t"];
+alert( arr.slice(1, 3) ); // e,s (копирует с 1 до 3)
+//alert( arr.slice(-2) ); // s,t (копирует с -2 до конца)
+
+// Можно вызвать slice и вообще без аргументов: arr.slice() создаёт копию массива arr. Это часто используют, чтобы создать копию массива для дальнейших преобразований, которые не должны менять исходный массив.
+ */
+
+// ======= Masive methods - concat =======
+/*
+
+//array.concat(arg1, arg2...)
+
+let arr = [1, 2];
+// создать массив из: arr и [3,4]
+alert( arr.concat([3, 4]) ); // 1,2,3,4
+// создать массив из: arr и [3,4] и [5,6]
+alert( arr.concat([3, 4], [5, 6]) ); // 1,2,3,4,5,6
+// создать массив из: arr и [3,4], потом добавить значения 5 и 6
+alert( arr.concat([3, 4], 5, 6) ); // 1,2,3,4,5,6
+
+let arr = [1, 2];
+let arrayLike = {
+  0: "что-то",
+  length: 1
+};
+alert( arr.concat(arrayLike) ); // 1,2,[object Object]
+
+let arr = [1, 2];
+let arrayLike = {
+  0: "что-то",
+  1: "ещё",
+  [Symbol.isConcatSpreadable]: true,
+  length: 2
+};
+alert( arr.concat(arrayLike) ); // 1,2,что-то,ещё
+*/
+
+// ======= Masive methods - find/findIndex =======
+/*
+
+let result = arr.find(function(item, index, array) {
+    // если true - возвращается текущий элемент и перебор прерывается
+    // если все итерации оказались ложными, возвращается undefined
+});
+// Например, у нас есть массив пользователей, каждый из которых имеет поля id и name. Попробуем найти того, кто с id == 1:
+let users = [
+    {id: 1, name: "Вася"},
+    {id: 2, name: "Петя"},
+    {id: 3, name: "Маша"}
+];
+let user = users.find(item => item.id == 1);
+alert(user.name); // Вася
+ */
+
+// ======= Masive methods - find/findIndex =======
+/*
+
+let results = arr.filter(function(item, index, array) {
+    // если true - элемент добавляется к результату, и перебор продолжается
+    // возвращается пустой массив в случае, если ничего не найдено
+});
+
+let users = [
+    {id: 1, name: "Вася"},
+    {id: 2, name: "Петя"},
+    {id: 3, name: "Маша"}
+]; 
+// возвращает массив, состоящий из двух первых пользователей
+let someUsers = users.filter(item => item.id < 3);  
+alert(someUsers.length); // 2
+ */
 
 // class чертёж для будущих объектов
 /*
@@ -761,7 +875,7 @@ getCurrencies ()
 */
 
 // ==== Курс валют. Получаем данные с сервера async/await 2 ===
-
+/* 
 async function getCurrencies () {
     // 1. получаем данные с сервера
     const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js')
@@ -786,4 +900,4 @@ function renderRates(data) {
     usdElement.textContent = usdRate;
     eurElement.textContent = eurRate;
 }
-
+*/
