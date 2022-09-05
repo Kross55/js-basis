@@ -901,3 +901,94 @@ function renderRates(data) {
     eurElement.textContent = eurRate;
 }
 */
+
+
+// ==== ЗАДАЧИ по массивам ===
+/*
+ 
+
+// Задача 1
+// function filterRange(arr, a, b) {
+//     // добавлены скобки вокруг выражения для улучшения читабельности
+//     return arr.filter(item => (a <= item && item <= b));
+// }
+
+// let arr1 = [8, 15, 33, 6, 17]
+
+// let filter = filterRange(arr1, 7, 33)
+// console.log(filter)
+
+
+// Задача 2
+// function filterRangeInPlace(arr, a, b) {
+
+//     for (let i = 0; i < arr.length; i++) {
+//       let val = arr[i];
+  
+//       // удалить, если за пределами интервала
+//       if (val < a || val > b) {
+//         arr.splice(i, 1);
+//         i--;
+//       }
+//     }
+  
+//   }
+
+//   let arr = [5, 3, 8, 2, 10, 1];  
+//   filterRangeInPlace(arr, 1, 4); // удалены числа вне диапазона 1..4  
+//   console.log( arr ); // [3, 1]
+// let arr = [5, 2, 1, -10, 8];
+// arr.sort((a, b) => b - a);
+// console.log( arr );
+
+
+// Задача 3
+// function copySorted(arr) {
+//     return arr.slice().sort();
+//   }
+  
+//   let arr = ["HTML", "JavaScript", "CSS"];
+  
+//   let sorted = copySorted(arr);
+  
+//   console.log( sorted );
+//   console.log( arr );
+
+// Задача 4
+//   function camelize(str) {
+//     return str
+//       .split('-') // разбивает 'my-long-word' на массив ['my', 'long', 'word']
+//       .map(
+//         // Переводит в верхний регистр первые буквы всех элементом массива за исключением первого
+//         // превращает ['my', 'long', 'word'] в ['my', 'Long', 'Word']
+//         (word, index) => index == 0 ? word : word[0].toUpperCase() + word.slice(1)
+//       )
+//       .join(''); // соединяет ['my', 'Long', 'Word'] в 'myLongWord'
+//   }
+
+// Задача 4
+// let arr = [5, 2, 1, -10, 8];
+
+// arr.sort((a, b) => b - a); // ... ваш код для сортировки по убыванию
+
+// console.log( arr );
+*/
+
+let vasya = { name: "Вася", surname: "Пупкин", id: 1 };
+let petya = { name: "Петя", surname: "Иванов", id: 2 };
+let masha = { name: "Маша", surname: "Петрова", id: 3 };
+
+let users = [ vasya, petya, masha ];
+
+let usersMapped = users.map( user => { user.fullName = `${user.name} ${user.surname}`, user.id = `${user.id}`})
+
+/*
+usersMapped = [
+  { fullName: "Вася Пупкин", id: 1 },
+  { fullName: "Петя Иванов", id: 2 },
+  { fullName: "Маша Петрова", id: 3 }
+]
+*/
+
+console.log( usersMapped[0].id ) // 1
+console.log( usersMapped[0].fullName ) // Вася Пупкин
