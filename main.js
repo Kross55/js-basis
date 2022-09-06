@@ -972,23 +972,171 @@ function renderRates(data) {
 // arr.sort((a, b) => b - a); // ... ваш код для сортировки по убыванию
 
 // console.log( arr );
-*/
 
+
+// Задача 5 & 6
 let vasya = { name: "Вася", surname: "Пупкин", id: 1 };
 let petya = { name: "Петя", surname: "Иванов", id: 2 };
 let masha = { name: "Маша", surname: "Петрова", id: 3 };
 
 let users = [ vasya, petya, masha ];
 
-let usersMapped = users.map( user => { user.fullName = `${user.name} ${user.surname}`, user.id = `${user.id}`})
+let names = users.map( item => item.name)
 
-/*
-usersMapped = [
-  { fullName: "Вася Пупкин", id: 1 },
-  { fullName: "Петя Иванов", id: 2 },
-  { fullName: "Маша Петрова", id: 3 }
-]
-*/
+let usersMapped = users.map( user => ({fullName: `${user.name} ${user.surname}`, id: user.id}) )
 
+
+// usersMapped = [
+//   { fullName: "Вася Пупкин", id: 1 },
+//   { fullName: "Петя Иванов", id: 2 },
+//   { fullName: "Маша Петрова", id: 3 }
+// ]
+
+
+console.log(names)
 console.log( usersMapped[0].id ) // 1
 console.log( usersMapped[0].fullName ) // Вася Пупкин
+
+
+
+//Задача 7
+let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 28 };
+
+let arr = [ vasya, petya, masha ];
+
+let arrAge = arr.map( age => age.age ) 
+
+function sortByAge(arrAge)  {
+    return arrAge.sort()
+}
+
+console.log(arrAge)
+
+console.log(arrAge[0].age); // 25
+console.log(arrAge[1].age); // 28
+console.log(arrAge[2].age); // 30
+
+
+function sortByAge(arr)  {
+    //return arr.sort((a, b) => a.age > b.age ? 1 : -1 )
+    return arr.sort((a, b) => a.age - b.age )
+}
+
+sortByAge(arr); 
+
+console.log(arr)
+
+console.log(arr[0].name); // Вася
+console.log(arr[1].name); // Маша
+console.log(arr[2].name); // Петя
+
+
+//Задача 8
+let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 29 };
+let maks = { name: "Маша", age: 1 };
+
+let arr = [ vasya, petya, masha, maks ];
+
+// function getAverageAge(arr) {
+//     return arr
+//         .map(item => item.age)
+//         .reduce((sum, current) => sum + current, 0)/arr.length
+// }
+
+function getAverageAge(users) {
+    return users.reduce((prev, user) => prev + user.age, 0) / users.length;
+  }
+
+console.log( getAverageAge(arr) ); // (25 + 30 + 29 + 1) / 4 = 21.25
+
+
+//Задача 9
+let strings = ["кришна", "кришна", "харе", "харе",
+    "харе", "харе", "кришна", "кришна", ":-O"
+  ];
+
+function unique(arr) {
+    let result = [];
+  
+    for (let str of arr) {
+      if (!result.includes(str)) {
+        result.push(str);
+      }
+    }
+  
+    return result;
+  }
+  
+ console.log( strings ); 
+ console.log( unique(strings) ); // кришна, харе, :-O
+
+
+//Задача 10
+let users = [
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+  ];
+  
+  let usersById = groupById(users);
+  
+  function groupById(array) {
+    return array.reduce((obj, value) => {
+      obj[value.id] = value;
+      return obj;
+    }, {})
+  }
+
+  console.log(usersById)
+
+  
+  // после вызова у нас должно получиться:
+  
+  usersById = {
+    john: {id: 'john', name: "John Smith", age: 20},
+    ann: {id: 'ann', name: "Ann Smith", age: 24},
+    pete: {id: 'pete', name: "Pete Peterson", age: 31},
+  }
+  
+
+
+//Задача 10
+  let powerCalc = new Calculator;
+  powerCalc.addMethod("*", (a, b) => a * b);
+  powerCalc.addMethod("/", (a, b) => a / b);
+  powerCalc.addMethod("**", (a, b) => a ** b);
+  
+  let result = powerCalc.calculate("2 ** 3");
+  alert( result ); // 8
+
+  function Calculator() {
+
+    this.methods = {
+      "-": (a, b) => a - b,
+      "+": (a, b) => a + b
+    };
+  
+    this.calculate = function(str) {
+  
+      let split = str.split(' '),
+        a = +split[0],
+        op = split[1],
+        b = +split[2]
+  
+      if (!this.methods[op] || isNaN(a) || isNaN(b)) {
+        return NaN;
+      }
+  
+      return this.methods[op](a, b);
+    }
+  
+    this.addMethod = function(name, func) {
+      this.methods[name] = func;
+    };
+  }
+
+*/
