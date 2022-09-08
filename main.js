@@ -1101,7 +1101,7 @@ let users = [
     ann: {id: 'ann', name: "Ann Smith", age: 24},
     pete: {id: 'pete', name: "Pete Peterson", age: 31},
   }
-  
+ 
 
 
 //Задача 10
@@ -1139,4 +1139,40 @@ let users = [
     };
   }
 
+
+'use strict';
+
+let number = prompt('Введите число?', 0);
+
+if (number > 0) {
+    alert( 1 );
+} else if (number < 0) {
+    alert( -1 );
+}
+else {
+    alert( 0 );
+}
+ 
+
+let result = (a + b < 4) ? 'Мало': 'Много';
 */
+
+let userName = prompt('Кто там?','');
+
+if (userName == 'Админ') {
+    let adminPass = prompt('Пароль?','');
+    if (adminPass == 'Я Главный') {
+        alert('Привет');
+    } else if (adminPass == null || adminPass == '') {
+        alert('Отменено');
+    } else {
+        alert('Неверный пароль');
+    }
+} else if (userName == null || userName == '') {
+    alert('Отменено');
+}else  {
+    alert('Я вас не знаю');
+} 
+
+
+
