@@ -1,3 +1,4 @@
+/*
 describe("pow", function () {
 
     // it("3 в степени 3 будет 27", function () {
@@ -32,3 +33,4 @@ describe("pow", function () {
     });
 
 });
+*/
