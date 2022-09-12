@@ -205,3 +205,37 @@ function bouble( integer ) {
 alert( bouble( integer1 ) )
 */
 
+// ========= Massives =========
+/** 
+
+let styles = ['Jazz', 'Bluze'];
+
+styles.push('Rock-n-Roll');
+
+styles[Math.round(styles.length/2)] = 'Classic';  // ?????
+
+styles.shift();
+
+styles.unshift('Rap', 'Reggy');
+
+styles[Math.floor((styles.length - 1) / 2)] = 'Center';
+
+alert( styles )
+*/
+
+
+function sumInput() {
+  let x;
+  let sum = 0;
+  let arr = [];
+  if ( x !== null || x !== '') {
+    x = prompt( 'Text integer', 0 );
+    arr.push( +x );
+    for (let item of arr) {
+      sum += +item
+    }
+  } return sum;
+  
+}
+
+sumInput();
