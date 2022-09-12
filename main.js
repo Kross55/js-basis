@@ -153,3 +153,44 @@ function random(min, max) {
 
 alert(random(2, 4))
 */
+
+//  ======== Strings ========
+/** 
+
+function ucFirst(str) {
+  if(!str) return str;
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+let str1 = "";
+alert(ucFirst(str1))
+
+
+function checkSpam(str) {
+  let strLower = str.toLowerCase()
+  return strLower.includes('viagra') || str.includes('xxx');
+}
+
+console.log(checkSpam("innocent rabbit") == false );
+
+
+function truncate(str, length) {
+  // if ( str.length > length ) return str.slice(0, ( length - 1 )) + '...'
+  // return str
+  return ( str.length > length ) ? 
+  str.slice(0, ( length - 1 )) + '...' : str
+}
+
+alert( truncate( "Вот, что мне хотелось бы сказать на эту тему:", 20 ) ); //= "Вот, что мне хотело…"
+alert( truncate( "Всем привет!", 20 ) ); //= "Вот, что мне хотело…"
+
+
+alert( extractCurrencyValue('$120') === 120 );
+
+function extractCurrencyValue( price ) {
+  return +price.slice(1)
+}
+*/
+
+
+
