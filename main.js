@@ -190,7 +190,18 @@ alert( extractCurrencyValue('$120') === 120 );
 function extractCurrencyValue( price ) {
   return +price.slice(1)
 }
+
+let integer1 = 9119;
+
+function bouble( integer ) {
+  let strDouble = '';
+  let str = String(integer);
+  for (let i of str) {
+    strDouble += String( i * 2 )
+  }
+  return +strDouble
+}
+
+alert( bouble( integer1 ) )
 */
-
-
 
