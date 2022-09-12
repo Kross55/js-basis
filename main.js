@@ -1,7 +1,7 @@
 'use strict'
 
 // ========  this.  =====
-/** 
+/**
 let calculator = {
     // a: 5,
     // b: 5,
@@ -10,7 +10,7 @@ let calculator = {
         this.b = +prompt('b?', 0);
     },
     sum() {
-        return this.a + this.b
+        // return this.a + this.b
     },
     mul() {
         return this.a * this.b
@@ -122,4 +122,34 @@ accumulator.read(); // прибавляет введённое пользова�
 accumulator.read(); // прибавляет введённое пользователем значение к текущему значению
 
 alert(accumulator.value); // выведет сумму этих значений
+*/
+
+// ======== Number ========
+/** 
+function readNumber() {
+    let num;
+    do {
+        num = prompt('text number', 0)
+        if ( num === null || num === '') return null;
+    } while ( !isFinite(num) )
+    
+    return +num
+}
+
+alert(`Number: ${readNumber()}`)
+
+
+function random(min, max) { 
+  return min + Math.random() * ( max - min );
+}
+
+alert(random(2, 4))
+
+
+function random(min, max) { 
+  let rand = min + Math.random() * ( max + 1 - min );
+  return Math.floor(rand)
+}
+
+alert(random(2, 4))
 */
