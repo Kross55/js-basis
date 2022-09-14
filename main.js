@@ -195,13 +195,30 @@ function extractCurrencyValue( price ) {
 let integer1 = 9119;
 
 function bouble( integer ) {
+  //first solution
   let strDouble = '';
   let str = String(integer);
   for (let i of str) {
     strDouble += String( i ** 2 )
   }
   return +strDouble
+
+  // second solution
+  // let str = String(integer);
+  // return Array.from( str, num => num * num).join('')
 }
+
+alert( bouble( integer1 ) )
+
+let integer1 = 7833;
+
+function bouble( integer ) {
+  
+  let str = String(integer);
+
+  return Array.from( str, num => num * num).join('')
+}
+
 
 alert( bouble( integer1 ) )
 
@@ -211,16 +228,22 @@ alert( bouble( integer1 ) )
 
 let str1 = 'abcdef'
 
+let arr = [];
+
+let [a, b = '_', ...rest] = str1.split('');
+console.log( rest )
+arr.push( [a, b].join('') ) 
+
+console.log( arr )
+
 function twoLettersArr(str) {
 
-  let arr = str.split('');  // ['a', 'b', 'c', 'd', 'e', 'f']
-  console.log(arr);
+  // let arr = [];
 
-  // for (let i = 0; i < str.length; i++) {
-  //   arr.push( str[i] ) ;
-  // }
-  
-  return alert(arr)
+  // let [a, b = '_', ...rest] = str.split('');
+  // arr.push( [a, b].join('') ) 
+
+  // return console.log( arr )
 }
 
 console.log( twoLettersArr(str1) )
@@ -494,5 +517,110 @@ function groupById(array) {
     return obj;
   }, {})
 }
+
+*/
+
+// ========= Map & Set ========
+/** 
+
+function unique(arr) {
+  
+  return Array.from( new Set( arr ) );
+}
+
+let values = ["Hare", "Krishna", "Hare", "Krishna",
+  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+];
+
+alert( unique(values) ); // Hare,Krishna,:-O
+
+
+function aclean(arr) {
+  let map = new Map();
+
+  for (let word of arr) {
+    // разбиваем слово на буквы, сортируем и объединяем снова в строку
+    let sorted = word.toLowerCase().split("").sort().join(""); // (*)
+    map.set(sorted, word);
+  }
+
+  return Array.from(map.values());
+}
+
+let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+alert( aclean(arr) );
+*/
+
+// ========= Object.keys()/values()/entries() ======
+/** 
+let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+};
+
+function sumSalaries(obj) {
+  // let sum = 0;
+  // let arr = Object.values(obj);
+  // for (let prop of arr) {
+  //   sum += prop
+  // }
+  // return sum
+  
+  return Object.values(obj).reduce( (sum, current) => sum + current, 0);
+}
+
+alert( sumSalaries(salaries) );
+
+
+
+let user = {
+  name: 'John',
+  age: 30
+};
+
+function count( obj ) {
+  return Object.keys(obj).length 
+}
+
+alert( count(user) ); // 2
+*/
+
+// ========= Деструктуризация ========
+/** 
+
+let user = { name: "John", years: 30 };
+
+let {name, years: age, isAdmin = false } = user
+
+alert( name ); // John
+alert( age ); // 30
+alert( isAdmin ); // false
+
+
+
+let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+};
+
+function topSalary(salaries) {
+
+  let max = 0;
+  let maxName = null;
+
+  for(const [name, salary] of Object.entries(salaries)) {
+    if (max < salary) {
+      max = salary;
+      maxName = name;
+    }
+  }
+
+  return maxName;
+}
+
+alert( topSalary(salaries) )
 
 */
