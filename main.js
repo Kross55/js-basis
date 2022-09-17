@@ -624,3 +624,63 @@ function topSalary(salaries) {
 alert( topSalary(salaries) )
 
 */
+
+// ========= Date & Time =============
+/** 
+//20 февраля 2012 года, 3 часа 12 минут. Временная зона – местная.
+let date = new Date(2012, 1, 20, 3, 12);
+
+let date1 = new Date( Date.parse('2012-02-20T03:12:00.000+02:00') );
+
+alert(date);
+alert(date1);
+
+
+// получить день недели
+let date = new Date(2022, 8, 17);  // 3 января 2012 года
+
+function getWeekDay(d) {
+  let day = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SUT']
+  let i = d.getDay()
+  return day[i] //day[d.getDay()]
+}
+alert( getWeekDay(date) );        // нужно вывести "TUE"
+
+
+// получить день недели европейский
+let date = new Date(2012, 0, 3);  // 3 января 2012 года
+  
+function getLocalDay(d) {
+  let day = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SUT'];
+  let i = d.getDay()
+  if (i == 0) {
+    return `${day[i]} 7`
+  } 
+  return `${day[i]} ${i}` 
+}
+
+alert( getLocalDay(date) );       // вторник, нужно показать 2
+
+
+//Какой день месяца был много дней назад?
+let date = new Date(2015, 0, 2);
+
+// function getDateAgo(date, days) {
+//   let dateCopy = new Date(date);
+//   return new Date(dateCopy.getTime() - days*24*60*60*1000)
+// }
+
+// функция не должна изменять объект date.
+// Это очень важно, поскольку внешний код, передающий нам объект,
+// не ожидает его изменения.
+function getDateAgo(date, days) {
+  let dateCopy = new Date(date);
+
+  dateCopy.setDate(date.getDate() - days);
+  return dateCopy.getDate();
+}
+
+alert( getDateAgo(date, 1) ); // 1, (1 Jan 2015)
+alert( getDateAgo(date, 2) ); // 31, (31 Dec 2014)
+alert( getDateAgo(date, 365) ); // 2, (2 Jan 2014)
+*/
