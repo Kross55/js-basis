@@ -683,4 +683,273 @@ function getDateAgo(date, days) {
 alert( getDateAgo(date, 1) ); // 1, (1 Jan 2015)
 alert( getDateAgo(date, 2) ); // 31, (31 Dec 2014)
 alert( getDateAgo(date, 365) ); // 2, (2 Jan 2014)
+
+
+// 5. Последнее число месяца?
+
+//Напишите функцию getLastDayOfMonth(year, month), возвращающую последнее число месяца. Иногда это 30, 31 или даже февральские 28/29.
+
+// year – год из четырёх цифр, например, 2012.
+// month – месяц от 0 до 11.
+// К примеру, getLastDayOfMonth(2012, 1) = 29 (високосный год, февраль).
+
+function getLastDayOfMonth(year, month) {
+  return new Date(year, (month + 1), 0).getDate()
+}
+
+alert( getLastDayOfMonth(2022, 1) )
+
+
+// 6. Сколько сегодня прошло секунд?
+
+// Напишите функцию getSecondsToday(), возвращающую количество секунд с начала сегодняшнего дня.
+
+// Например, если сейчас 10:00, и не было перехода на зимнее/летнее время, то:
+
+// getSecondsToday() == 36000 // (3600 * 10)
+// Функция должна работать в любой день, т.е. в ней не должно быть конкретного значения сегодняшней даты.
+
+// мой вариант выдавал погрешность в 3 часа, сделал поправку на них
+// function getSecondsToday() {
+//   return Math.round( ( (+Date.now() + 3*60*60*1000) % (24*60*60*1000) )/1000 )
+// }
+
+// alert( Date.now() )
+// alert( getSecondsToday() )
+
+function getSecondsToday() {
+  let now = new Date();
+
+  // создаём объект с текущими днём/месяцем/годом
+  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let diff = now - today; // разница в миллисекундах
+  return Math.round(diff / 1000); // получаем секунды
+}
+
+alert( getSecondsToday() );
+
+
+// 7. Сколько секунд осталось до завтра?
+
+// Создайте функцию getSecondsToTomorrow(), возвращающую количество секунд до завтрашней даты.
+
+// Например, если сейчас 23:00, то:
+
+// getSecondsToTomorrow() == 3600
+// P.S. Функция должна работать в любой день, т.е. в ней не должно быть конкретного значения сегодняшней даты.
+
+function getSecondsToTomorrow() {
+  let now = new Date();
+
+  // завтрашняя дата
+  let tomorow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
+  let diff = tomorow - now; // разница в миллисекундах
+  return Math.round(diff / 1000); // получаем секунды
+}
+
+alert( getSecondsToTomorrow() );
+
+
+// 8. Напишите функцию formatDate(date), форматирующую date по следующему принципу:
+
+// Если спустя date прошло менее 1 секунды, вывести "прямо сейчас".
+// В противном случае, если с date прошло меньше 1 минуты, вывести "n сек. назад".
+// В противном случае, если меньше часа, вывести "m мин. назад".
+// В противном случае, полная дата в формате "DD.MM.YY HH:mm". А именно: "день.месяц.год часы:минуты", всё в виде двух цифр, т.е. 31.12.16 10:00.
+// Например:
+
+// alert( formatDate(new Date(new Date - 1)) ); // "прямо сейчас"
+
+// alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 сек. назад"
+
+// alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
+
+// // вчерашняя дата вроде 31.12.2016, 20:00
+// alert( formatDate(new Date(new Date - 86400 * 1000)) );
+
+
+function formatDate(date) {
+  let dayOfMonth = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let hour = date.getHours();
+  let minutes = date.getMinutes();
+  let diffMs = new Date() - date;
+  let diffSec = Math.round(diffMs / 1000);
+  let diffMin = diffSec / 60;
+  let diffHour = diffMin / 60;
+
+  // форматирование
+  year = year.toString().slice(-2);
+  month = month < 10 ? '0' + month : month;
+  dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
+  hour = hour < 10 ? '0' + hour : hour;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  if (diffSec < 1) {
+    return 'прямо сейчас';
+  } else if (diffMin < 1) {
+    return `${diffSec} сек. назад`
+  } else if (diffHour < 1) {
+    return `${diffMin} мин. назад`
+  } else {
+    return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`
+  }
+}
 */
+
+// ========= JSON,  toJSON() =========
+/** 
+
+// 1. Преобразуйте объект в JSON, а затем обратно в обычный объект
+
+// Преобразуйте user в JSON, затем прочитайте этот JSON в другую переменную.
+
+let user = {
+  name: "Василий Иванович",
+  age: 35
+};
+
+let newUser = JSON.parse( JSON.stringify(user) );
+
+
+// 2. Исключить обратные ссылки
+// важность: 5
+// В простых случаях циклических ссылок мы можем исключить свойство, из-за которого они возникают, из сериализации по его имени.
+
+// Но иногда мы не можем использовать имя, так как могут быть и другие, нужные, свойства с этим именем во вложенных объектах. Поэтому можно проверять свойство по значению.
+
+// Напишите функцию replacer для JSON-преобразования, которая удалит свойства, ссылающиеся на meetup:
+
+let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Совещание",
+  occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+  place: room
+};
+
+// цикличные ссылки
+room.occupiedBy = meetup;
+meetup.self = meetup;
+
+alert( JSON.stringify(meetup, function replacer(key, value) {
+  return (key != "" && value == meetup) ? undefined : value;
+}));
+
+// в результате должно быть:
+// {
+//   "title":"Совещание",
+//   "occupiedBy":[{"name":"Иванов"},{"name":"Петров"}],
+//   "place":{"number":23}
+// }
+*/
+
+// ========= Stek, recurtion =========
+/** 
+
+function factorial(n) {
+  return (n != 1) ? n * factorial(n - 1) : 1
+}
+
+alert( factorial(3) )
+
+
+// Числа Фибоначчи
+// важность: 5
+// Последовательность чисел Фибоначчи определяется формулой Fn = Fn-1 + Fn-2. То есть, следующее число получается как сумма двух предыдущих.
+
+// Первые два числа равны 1, затем 2(1+1), затем 3(1+2), 5(2+3) и так далее: 1, 1, 2, 3, 5, 8, 13, 21....
+
+// Числа Фибоначчи тесно связаны с золотым сечением и множеством природных явлений вокруг нас.
+
+// Напишите функцию fib(n) которая возвращает n-е число Фибоначчи.
+
+// Пример работы:
+
+
+
+// function fib(n) {
+//   let f = (((5 ** (1/2)) - 1)/2) + 1;
+//   return Math.round( (f ** n)/(5 ** (1/2)) )
+// }
+
+// alert(fib(3)); // 2
+// alert(fib(7)); // 13
+// alert(fib(77)); // 5527939700884757  // my result = 5527939700884771
+
+function fib(n) {
+  let a = 1;
+  let b = 1;
+  for (let i = 3; i <= n; i++) {
+    let c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+
+alert( fib(3) ); // 2
+alert( fib(7) ); // 13
+alert( fib(77) ); // 5527939700884757
+// Цикл начинается с i=3, потому что первое и второе значения последовательности заданы a=1, b=1.
+
+
+
+// 3. Вывод односвязного списка
+// важность: 5
+// Допустим, у нас есть односвязный список (как описано в главе Рекурсия и стек):
+
+let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+// Напишите функцию printList(list), которая выводит элементы списка по одному.
+
+// Сделайте два варианта решения: используя цикл и через рекурсию.
+
+// Как лучше: с рекурсией или без?
+
+// через цикл
+// function printReverseList(list) {
+//   let arr = [];
+//   let tmp = list;
+
+//   while (tmp) {
+//     arr.push(tmp.value);
+//     tmp = tmp.next;
+//   }
+
+//   for (let i = arr.length - 1; i >= 0; i--) {
+//     alert( arr[i] );
+//   }
+// }
+
+// printReverseList(list);
+
+// через рекурсию
+function printReverseList(list) {
+
+  if (list.next) {
+    printReverseList(list.next);
+  }
+
+  alert(list.value);
+}
+
+printReverseList(list);
+*/
+
