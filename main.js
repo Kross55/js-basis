@@ -1020,9 +1020,9 @@ function printReverseList(list) {
 printReverseList(list);
 */
 
-// ========= Замыкание ===============
+// ========= Замыкание and functions ===============
 /** 
-// Сумма с помощью замыканий
+// 1. Сумма с помощью замыканий
 // важность: 4
 // Напишите функцию sum, которая работает таким образом: sum(a)(b) = a+b.
 
@@ -1043,4 +1043,166 @@ function sum(a) {
 
 alert( sum(1)(2) ); // 3
 alert( sum(5)(-1) ); // 4
+
+
+
+// 2. Фильтрация с помощью функции
+// важность: 5
+// У нас есть встроенный метод arr.filter(f) для массивов. Он фильтрует все элементы с помощью функции f. Если она возвращает true, то элемент добавится в возвращаемый массив.
+
+// Сделайте набор «готовых к употреблению» фильтров:
+
+// inBetween(a, b) – между a и b (включительно).
+// inArray([...]) – находится в данном массиве.
+// Они должны использоваться таким образом:
+
+// arr.filter(inBetween(3,6)) – выбирает только значения между 3 и 6 (включительно).
+// arr.filter(inArray([1,2,3])) – выбирает только элементы, совпадающие с одним из элементов массива
+// Например:
+
+// .. ваш код для inBetween и inArray 
+// function inBetween(a, b) {
+//   return function(x) {
+//     return x >= a && x <= b;
+//   };
+// }
+
+// let arr = [1, 2, 3, 4, 5, 6, 7];
+// alert( arr.filter(inBetween(3, 6)) ); // 3,4,5,6
+
+
+// function inArray(arr) {
+//   return function(x) {
+//     return arr.includes(x);
+//   };
+// }
+
+// let arr1 = [1, 2, 3, 4, 5, 6, 7];
+// alert( arr1.filter(inArray([1, 2, 10])) ); // 1,2
+
+// 3. Сортировать по полю
+// важность: 5
+// У нас есть массив объектов, который нужно отсортировать:
+
+let users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+// Обычный способ был бы таким:
+
+// // по имени (Ann, John, Pete)
+// users.sort((a, b) => a.name > b.name ? 1 : -1);
+
+// // по возрасту (Pete, Ann, John)
+// users.sort((a, b) => a.age > b.age ? 1 : -1);
+// Можем ли мы сделать его короче, например вот таким?
+
+function byField(fieldName){
+  return ((a, b) => a[fieldName] > b[fieldName] ? 1 : -1);
+}
+
+console.log(users.sort(byField('name')));
+console.log(users.sort(byField('age')));
+// То есть чтобы вместо функции мы просто писали byField(fieldName).
+
+// Напишите функцию byField, которая может быть использована для этого.
+
+
+// 4. Армия функций
+// важность: 5
+// Следующий код создаёт массив из стрелков (shooters).
+
+// Каждая функция предназначена выводить их порядковые номера. Но что-то пошло не так…
+// function makeArmy() {
+//   let shooters = [];
+
+  
+//   for (let i = 0; i < 10; i++) {
+//     let shooter = function() { // функция shooter
+//       alert( i ); // должна выводить порядковый номер
+//     };
+//     shooters.push(shooter);
+//   }
+
+//   return shooters;
+// }
+
+// let army = makeArmy();
+
+function makeArmy() {
+  let shooters = [];
+
+  let i = 0;
+  while (i < 10) {
+    let j = i;
+    let shooter = function() { // функция shooter
+      alert( j ); // должна выводить порядковый номер
+    };
+    shooters.push(shooter);
+    i++;
+  }
+
+  return shooters;
+}
+
+let army = makeArmy();
+
+army[0](); // 0
+army[5](); // 5
+
+army[0](); // у 0-го стрелка будет номер 10
+army[5](); // и у 5-го стрелка тоже будет номер 10
+// ... у всех стрелков будет номер 10, вместо 0, 1, 2, 3...
+
+
+// function makeCounter() {
+//   let count = 0;
+//   function counter() {
+//     return count++;
+//   }
+
+//   counter.set = value => count = value;
+
+//   counter.decrease = () => count--;
+
+//   return counter;
+// }
+
+// let counter = makeCounter();
+// alert( counter.set(10) ); // 10
+// alert( counter.decrease() ); // 9
+// alert( counter.decrease() );
+
+
+// Сумма с произвольным количеством скобок
+// важность: 2
+// Напишите функцию sum, которая бы работала следующим образом:
+
+// sum(1)(2) == 3; // 1 + 2
+// sum(1)(2)(3) == 6; // 1 + 2 + 3
+// sum(5)(-1)(2) == 6
+// sum(6)(-1)(-2)(-3) == 0
+// sum(0)(1)(2)(3)(4)(5) == 15
+// P.S. Подсказка: возможно вам стоит сделать особый метод преобразования в примитив для функции.
+
+
+function sum(a) { 
+  
+  let currentSum = a;
+
+  function f(b) {
+    currentSum += b;
+    return f;
+  }
+
+  f.toString = function() {
+    return currentSum;
+  };
+
+  return f;
+
+}
+
+alert( sum(0)(1)(2)(3)(4)(5) )
 */
