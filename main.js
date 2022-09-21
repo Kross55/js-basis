@@ -224,32 +224,99 @@ alert( bouble( integer1 ) )
 
 
 
-//codewars my second task 'abcdef' => ['ab', 'cd', 'ef']  not finished
+//codewars my second task 'abcdef' => ['ab', 'cd', 'ef']  done!!!
 
-let str1 = 'abcdef'
-
-let arr = [];
-
-let [a, b = '_', ...rest] = str1.split('');
-console.log( rest )
-arr.push( [a, b].join('') ) 
-
-console.log( arr )
+let str1 = 'dhfgbbcccczxx'
 
 function twoLettersArr(str) {
 
-  // let arr = [];
+  let arr = [];
+  let arr1 = str.split('');
+  console.log(arr1)
+  do {
+      let twoLetters = arr1.slice(0,2)
+      arr1 = arr1.slice(2)
+      console.log(arr1)
+      if (twoLetters.length == 2) {
+        arr.push( twoLetters.join('') )
+      } else  if (twoLetters.length == 1) {
+        arr.push( twoLetters.join('') + '_' )
+      } else {
+        arr
+      }
+  } while (arr1.length >= 1)
+  console.log(arr)
+  return  arr 
 
-  // let [a, b = '_', ...rest] = str.split('');
-  // arr.push( [a, b].join('') ) 
-
-  // return console.log( arr )
 }
 
-console.log( twoLettersArr(str1) )
+alert( twoLettersArr(str1) )
+
+//not my solutions
+
+let str = 'sdasf'
+
+// function solution(str){
+//   let i = 0;
+//   let result = [];
+//   if (str.length % 2 !== 0) {
+//     str = str + '_';
+//   }
+//   while (i < str.length) {
+//       result.push(str[i] + str[i+1]);
+//       i += 2;
+//     }
+//   return result;
+// }
+
+function solution(str){
+  let res = [];
+  for (var i = 0; i < str.length; i +=2) res.push(`${str[i] + (str[i+1] || '_')}`)
+   return res;
+}
+
+alert(solution(str))
 
 
 */
+
+//  ======== Switch/case ======
+/*
+// codewars 1 task
+// You probably know the "like" system from Facebook and other pages. People can "like" blog posts, pictures or other items. We want to create the text that should be displayed next to such an item.
+
+// Implement the function which takes an array containing the names of people that like an item. It must return the display text as shown in the examples:
+ // []                                -->  "no one likes this"
+// ["Peter"]                         -->  "Peter likes this"
+// ["Jacob", "Alex"]                 -->  "Jacob and Alex like this"
+// ["Max", "John", "Mark"]           -->  "Max, John and Mark like this"
+// ["Alex", "Jacob", "Mark", "Max"]  -->  "Alex, Jacob and 2 others like this"
+
+let names = ["Max", "John", "Mark", "Max", "John", "Mark"];
+
+function likes(names) {
+  let likes = '';
+  switch (names.length) {
+    case 0:
+      likes = "no one likes this" ;
+      break;
+    case 1:
+      likes = `${names[0]} likes this` ;
+      break;
+    case 2:
+      likes = `${names[0]} and ${names[1]} like this` ;
+      break;
+    case 3:
+      likes = `${names[0]}, ${names[1]} and ${names[2]} like this` ;
+      break;
+    default:
+      likes = `${names[0]}, ${names[1]} and ${names.length - 2} others like this` ;
+  }
+  return likes;
+}
+
+alert(likes(names))
+ */
 
 // ========= Massives =========
 /** 
@@ -952,4 +1019,6 @@ function printReverseList(list) {
 
 printReverseList(list);
 */
+
+
 
