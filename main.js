@@ -1245,3 +1245,106 @@ function printNumbers(from, to) {
 // использование:
 printNumbers(5, 10);
 */
+
+// ========= codewars ========
+/** 
+
+// task 5
+// Create a function named divisors/Divisors that takes an integer n > 1 and returns an array with all of the integer's divisors(except for 1 and the number itself), from smallest to largest. If the number is prime return the string '(integer) is prime' (null in C#) (use Either String a in Haskell and Result<Vec<u32>, String> in Rust).
+
+// Example:
+// divisors(12); // should return [2,3,4,6]
+// divisors(25); // should return [5]
+// divisors(13); // should return "13 is prime"
+
+function divisors(integer) {
+  let arr = [];
+  for (let i = 2; i < integer; i++){
+    if(integer % i == 0) arr.push( integer / i );
+  }
+  return  arr.length ? arr.sort( (a, b) => a - b ) : `${integer} is prime`;
+};
+
+alert(divisors(12))
+
+//task6
+//string  with letters from a to m.
+// Examples:
+// s="aaabbbbhaijjjm"
+// printer_error(s) => "0/14"
+
+// s="aaaxbbbbyyhwawiwjjjwwm"
+// printer_error(s) => "8/22"
+
+let s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"
+
+function printerError(s) {
+  let arr = s.split('').filter(item => item < 'n')
+  let error = s.length - arr.length
+  return `${error}/${s.length}`
+}
+alert( printerError(s) ) //  3/56
+*/
+
+// ==== Декораторы и переадресация вызова, call/apply ===
+/** 
+
+// task 1
+// Декоратор-шпион
+// важность: 5
+// Создайте декоратор spy(func), который должен возвращать обёртку, которая сохраняет все вызовы функции в своём свойстве calls.
+
+// Каждый вызов должен сохраняться как массив аргументов.
+
+// Например:
+
+// function work(a, b) {
+//   alert( a + b ); // произвольная функция или метод
+// }
+
+// work = spy(work);
+
+// work(1, 2); // 3
+// work(4, 5); // 9
+
+// for (let args of work.calls) {
+//   alert( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+// }
+
+
+function spy(func) {
+
+  function wrapper(...args) {
+    // мы используем ...args вместо arguments для хранения "реального" массива в wrapper.calls
+    wrapper.calls.push(args);
+    return func.apply(this, args);
+  }
+
+  wrapper.calls = [];
+
+  return wrapper;
+}
+
+
+
+// task 2
+// Задерживающий декоратор
+// важность: 5
+// Создайте декоратор delay(f, ms), который задерживает каждый вызов f на ms миллисекунд. Например:
+
+function f(x) {
+  alert(x);
+}
+
+function delay(func, ms) {
+  return function() {
+    setTimeout(() => func.apply(this, arguments), ms);
+  };
+}
+
+let f1000 = delay(f, 1000);
+let f1500 = delay(f, 1500);
+
+f1000('test')
+*/
+
