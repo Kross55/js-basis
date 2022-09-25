@@ -1314,6 +1314,37 @@ function solution(number){
 // }
 
 alert( solution(15) )
+
+// task 8
+// Write a function that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed (Just like the name of this Kata). Strings passed in will consist of only letters and spaces. Spaces will be included only when more than one word is present.
+//spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw"
+let str = "Hey fellow warriors"
+
+function spinWords(str){
+  let arrRevers = [];
+  let arr = str.split(' ');
+  for (let i = 0; i < arr.length; i++){
+    if (arr[i].length >= 5) arrRevers.push( arr[i].split('').reverse().join('') );
+    if (arr[i].length < 5 ) arrRevers.push( arr[i] )
+  }
+  if(arrRevers.length == 1) return arrRevers[0]
+  return arrRevers.join(' ')
+}
+
+// not my solution
+
+// function spinWords(words){
+//   return words.split(' ').map(function (word) {
+//     return (word.length > 4) ? word.split('').reverse().join('') : word;
+//   }).join(' ');
+// }
+
+// function spinWords(str){
+//   return str.split(' ').map( w => w.length<5 ? w : w.split('').reverse().join('') ).join(' ');
+// }
+
+console.log(spinWords(str))
+
 */
 
 // ==== Декораторы и переадресация вызова, call/apply ===
@@ -1506,3 +1537,5 @@ askPassword(user.login.bind(user, true), user.login.bind(user, false));
 
 //askPassword(() => user.login(true), () => user.login(false));
  */
+
+
