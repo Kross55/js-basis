@@ -1267,7 +1267,7 @@ function divisors(integer) {
 
 alert(divisors(12))
 
-//task6
+//task 6
 //string  with letters from a to m.
 // Examples:
 // s="aaabbbbhaijjjm"
@@ -1284,6 +1284,36 @@ function printerError(s) {
   return `${error}/${s.length}`
 }
 alert( printerError(s) ) //  3/56
+
+//task 7
+// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+// Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in. Additionally, if the number is negative, return 0 (for languages that do have them).
+
+// Note: If the number is a multiple of both 3 and 5, only count it once.
+
+// Courtesy of projecteuler.net (Problem 1) 
+
+function solution(number){
+  if (number < 0) return 0
+  let arr = []
+  for (let i = 1; i < number; i++) {
+    if (i % 3 == 0 || i % 5 == 0) arr.push(i)
+  }
+  return arr.reduce( (sum, current) => sum + current, 0 )
+}
+
+// function solution(number){
+//   sum = 0
+//   for (i = 3; i < number; i++) {
+//     if (i % 3 == 0 || i % 5 == 0) {
+//       sum += i;
+//     }
+//   }
+//   return sum;
+// }
+
+alert( solution(15) )
 */
 
 // ==== Декораторы и переадресация вызова, call/apply ===
@@ -1453,3 +1483,26 @@ function throttle(func, ms) {
 // 3. … Затем по прошествии ms миллисекунд срабатывает setTimeout. Состояние задержки сбрасывается (isThrottled = false). И если мы проигнорировали вызовы, то «обёртка» выполняется с последними запомненными аргументами и контекстом.
 // На третьем шаге выполняется не func, а wrapper, потому что нам нужно не только выполнить func, но и ещё раз установить состояние задержки и таймаут для его сброс
 */
+
+// ==== привязать контекст с помощью bind/ Частичное применение ===
+/**
+
+//let bound = func.bind(context, [arg1], [arg2], ...);
+function askPassword(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  login(result) {
+    alert( this.name + (result ? ' logged in' : ' failed to log in') );
+  }
+};
+
+askPassword(user.login.bind(user, true), user.login.bind(user, false));
+
+//askPassword(() => user.login(true), () => user.login(false));
+ */
