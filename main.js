@@ -50,7 +50,7 @@ ladder
   .showStep(); // 0
  */
 
-  //  ======== constructor - new User - ===========
+// ======== constructor - new User - ===========
 /** 
   function BigUser() {
 
@@ -154,7 +154,7 @@ function random(min, max) {
 alert(random(2, 4))
 */
 
-//  ======== Strings ========
+// ======== Strings ========
 /** 
 
 function ucFirst(str) {
@@ -1345,6 +1345,39 @@ function spinWords(str){
 
 console.log(spinWords(str))
 
+// task 9
+// Take 2 strings s1 and s2 including only letters from a to z. Return a new sorted string, the longest possible, containing distinct letters - each taken only once - coming from s1 or s2.
+
+// Examples:
+// a = "xyaabbbccccdefww"
+// b = "xxxxyyyyabklmopq"
+// longest(a, b) -> "abcdefklmopqwxy"
+
+// a = "abcdefghijklmnopqrstuvwxyz"
+// longest(a, a) -> "abcdefghijklmnopqrstuvwxyz"
+
+let a = "xyaabbbccccdefww"
+let b = "xxxxyyyyabklmopq"
+
+function longest(a, b) {
+
+  let arr = []
+
+  let set = new Set((a + b).split('').sort())
+  for(let letter of set) arr.push(letter)
+  
+  return arr.join('')
+}
+
+console.log( longest(a, b) )
+
+// let s1 = "xyaabbbccccdefww"
+// let s2 = "xxxxyyyyabklmopq"
+
+// function longest(s1, s2) {
+//   return Array.from(new Set(s1 + s2)).sort().join('');
+// }
+
 */
 
 // ==== Декораторы и переадресация вызова, call/apply ===
@@ -1537,5 +1570,116 @@ askPassword(user.login.bind(user, true), user.login.bind(user, false));
 
 //askPassword(() => user.login(true), () => user.login(false));
  */
+
+// ========== class =============
+/** 
+
+// Перепишите класс
+// важность: 5
+// Класс Clock написан в функциональном стиле. Перепишите его, используя современный синтаксис классов.
+
+// P.S. Часики тикают в консоли. Откройте её, чтобы посмотреть.
+class Clock {
+  constructor({ template }) {
+    this.template = template;
+  }
+
+  render() {
+    let date = new Date();
+
+    let hours = date.getHours();
+    if (hours < 10) hours = '0' + hours;
+
+    let mins = date.getMinutes();
+    if (mins < 10) mins = '0' + mins;
+
+    let secs = date.getSeconds();
+    if (secs < 10) secs = '0' + secs;
+
+    let output = this.template
+      .replace('h', hours)
+      .replace('m', mins)
+      .replace('s', secs);
+
+    console.log(output);
+  }
+
+  stop() {
+    clearInterval(this.timer);
+  }
+
+  start() {
+    this.render();
+    this.timer = setInterval(() => this.render(), 1000);
+  }
+}
+
+
+let clock = new Clock({template: 'h:m:s'});
+clock.start();
+
+
+class Clock {
+  constructor({ template }) {
+    this.template = template;
+  }
+
+  render() {
+    let date = new Date();
+
+    let hours = date.getHours();
+    if (hours < 10) hours = '0' + hours;
+
+    let mins = date.getMinutes();
+    if (mins < 10) mins = '0' + mins;
+
+    let secs = date.getSeconds();
+    if (secs < 10) secs = '0' + secs;
+
+    let output = this.template
+      .replace('h', hours)
+      .replace('m', mins)
+      .replace('s', secs);
+
+    console.log(output);
+  }
+
+  stop() {
+    clearInterval(this.timer);
+  }
+
+  start() {
+    this.render();
+    this.timer = setInterval(() => this.render(), 1000);
+  }
+}
+
+class ExtendedClock extends Clock {
+  constructor(options) {
+    super(options);
+    let { precision = 1000 } = options;
+    this.precision = precision;
+  }
+
+  start() {
+    this.render();
+    this.timer = setInterval(() => this.render(), this.precision);
+  }
+};
+
+console.log(new ExtendedClock)
+
+
+class Rabbit extends Object {
+  constructor(name) {
+    super();
+    this.name = name;
+  }
+}
+
+let rabbit = new Rabbit("Кроль");
+
+alert( rabbit.hasOwnProperty('name') ); // Ошибка
+*/
 
 
