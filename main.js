@@ -1442,6 +1442,232 @@ function createPhoneNumber(numbers){
 //   return '(' + numbers.slice(0,3).join('') + ') ' + numbers.slice(3,6).join('') + '-' + numbers.slice(6).join('');
 // }
 
+// task 11
+
+// Write a function that takes a string of braces, and determines if the order of the braces is valid. It should return true if the string is valid, and false if it's invalid.
+
+// This Kata is similar to the Valid Parentheses Kata, but introduces new characters: brackets [], and curly braces {}. Thanks to @arnedag for the idea!
+
+// All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+
+// What is considered Valid?
+// A string of braces is considered valid if all braces are matched with the correct brace.
+
+// Examples
+// "(){}[]"   =>  True
+// "([{}])"   =>  True
+// "(}"       =>  False
+// "[(])"     =>  False
+// "[({})](]" =>  False
+// let str = '(){}[]'
+let str = ')[{}](([])'
+
+function validBraces(str){
+  let braces = str.split('')
+
+  let arr1 = [];
+  let arr2 = [];
+  let arr3 = [];
+  let arr4 = [];
+  let arr5 = [];
+  let arr6 = [];
+
+  for (let i = 0; i < braces.length; i++){
+    if(braces[i] === '(' || braces[i] === ')') arr1.push(i)
+  }
+  for (let i = 0; i < arr1.length; i += 2){
+    arr4.push(arr1[i] + arr1[i + 1])
+  }
+
+  for (let i = 0; i < braces.length; i++){
+    if(braces[i] === '{' || braces[i] === '}') arr2.push(i)
+  }
+
+  for (let i = 0; i < arr2.length; i += 2){
+    arr5.push(arr2[i] + arr2[i + 1])
+  }
+
+  for (let i = 0; i < braces.length; i++){
+    if(braces[i] === '{' || braces[i] === '}') arr3.push(i)
+  }
+
+  for (let i = 0; i < arr3.length; i += 2){
+    arr6.push(arr3[i] + arr3[i + 1])
+  }
+  
+  if(braces.length % 2 !== 0) return false;
+  if(braces.indexOf('(') > braces.indexOf(')')) return false;
+  if(braces.indexOf('{') > braces.indexOf('}')) return false;
+  if(braces.indexOf('[') > braces.indexOf(']')) return false;
+  if(braces.filter(item => item == '(').length !== braces.filter(item => item == ')').length) return false;
+  if(braces.filter(item => item == '{').length !== braces.filter(item => item == '}').length) return false;
+  if(braces.filter(item => item == '[').length !== braces.filter(item => item == ']').length) return false;
+  if(arr1.length % 2 !== 0) return false;
+  if(arr2.length % 2 !== 0) return false;
+  if(arr3.length % 2 !== 0) return false;
+  if((arr4.length % 2 === 1 && arr4.reduce((sum, current) => sum + current, 0) % 2 === 0) ||
+  (arr4.length % 2 === 0 && arr4.reduce((sum, current) => sum + current, 0) % 2 === 1)) return false
+  if((arr5.length % 2 === 1 && arr5.reduce((sum, current) => sum + current, 0) % 2 === 0) ||
+  (arr5.length % 2 === 0 && arr5.reduce((sum, current) => sum + current, 0) % 2 === 1)) return false
+  if((arr6.length % 2 === 1 && arr6.reduce((sum, current) => sum + current, 0) % 2 === 0) ||
+  (arr6.length % 2 === 0 && arr6.reduce((sum, current) => sum + current, 0) % 2 === 1)) return false
+
+  for (let i = 0; i < braces.length; i++){
+    if(braces[i] === '(' || braces[i] === '{' || braces[i] === '[') arr1.push(i)
+  }
+  return true
+}
+
+alert(validBraces(str))
+
+// not my solution
+// function validBraces(braces) {
+//   return (
+//       (braces.includes("()"))
+//       ? validBraces(braces.replace("()", ""))
+//       : (braces.includes("[]"))
+//           ? validBraces(braces.replace("[]", ""))
+//           : (braces.includes("{}"))
+//               ? validBraces(braces.replace("{}", ""))
+//               : (braces.length > 0)
+//                   ? false
+//                   : true
+//   );
+// }
+
+//task 12
+
+// Once upon a time, on a way through the old wild mountainous west,…
+// … a man was given directions to go from one point to another. The directions were "NORTH", "SOUTH", "WEST", "EAST". Clearly "NORTH" and "SOUTH" are opposite, "WEST" and "EAST" too.
+
+// Going to one direction and coming back the opposite direction right away is a needless effort. Since this is the wild west, with dreadful weather and not much water, it's important to save yourself some energy, otherwise you might die of thirst!
+
+// How I crossed a mountainous desert the smart way.
+// The directions given to the man are, for example, the following (depending on the language):
+
+// ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"].
+// or
+// { "NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST" };
+// or
+// [North, South, South, East, West, North, West]
+// You can immediately see that going "NORTH" and immediately "SOUTH" is not reasonable, better stay to the same place! So the task is to give to the man a simplified version of the plan. A better plan in this case is simply:
+
+// ["WEST"]
+// or
+// { "WEST" }
+// or
+// [West]
+// Other examples:
+// In ["NORTH", "SOUTH", "EAST", "WEST"], the direction "NORTH" + "SOUTH" is going north and coming back right away.
+
+// The path becomes ["EAST", "WEST"], now "EAST" and "WEST" annihilate each other, therefore, the final result is [] (nil in Clojure).
+
+// In ["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"], "NORTH" and "SOUTH" are not directly opposite but they become directly opposite after the reduction of "EAST" and "WEST" so the whole path is reducible to ["WEST", "WEST"].
+
+// Task
+// Write a function dirReduc which will take an array of strings and returns an array of strings with the needless directions removed (W<->E or S<->N side by side).
+
+// The Haskell version takes a list of directions with data Direction = North | East | West | South.
+// The Clojure version returns nil when the path is reduced to nothing.
+// The Rust version takes a slice of enum Direction {North, East, West, South}.
+// See more examples in "Sample Tests:"
+// Notes
+// Not all paths can be made simpler. The path ["NORTH", "WEST", "SOUTH", "EAST"] is not reducible. "NORTH" and "WEST", "WEST" and "SOUTH", "SOUTH" and "EAST" are not directly opposite of each other and can't become such. Hence the result path is itself : ["NORTH", "WEST", "SOUTH", "EAST"].
+// if you want to translate, please ask before translating.
+
+let directions = ["EAST","EAST","WEST","NORTH","WEST","EAST","EAST","SOUTH","NORTH","WEST"]
+
+function dirReduc(directions) {
+  let directionsArr = Array.from(directions)
+
+  let arr = [];
+  for (let i = 0; i < directions.length; i++) {
+    if (directionsArr[i] === 'NORTH') arr.push('a')
+    if (directionsArr[i] === 'SOUTH') arr.push('b')
+    if (directionsArr[i] === 'EAST') arr.push('c')
+    if (directionsArr[i] === 'WEST') arr.push('d')
+  }
+  let str = arr.join('');
+
+  console.log(str)
+
+  while (str.includes('ab')) str = str.replace('ab', '')
+  while (str.includes('cd')) str = str.replace('cd', '')
+  while (str.includes('ba')) str = str.replace('ba', '')
+  while (str.includes('dc')) str = str.replace('dc', '')
+
+  console.log(str)
+
+  while (str.includes('ab')) str = str.replace('ab', '')
+  while (str.includes('cd')) str = str.replace('cd', '')
+  while (str.includes('ba')) str = str.replace('ba', '')
+  while (str.includes('dc')) str = str.replace('dc', '')
+
+  let arr1 = str.split('')
+  console.log(arr1)
+
+  let resultArr = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] === 'a') resultArr.push('NORTH')
+    if (arr1[i] === 'b') resultArr.push('SOUTH')
+    if (arr1[i] === 'c') resultArr.push('EAST')
+    if (arr1[i] === 'd') resultArr.push('WEST')
+  }
+  return resultArr
+
+}
+
+console.log(dirReduc(directions))
+
+
+//not my solution
+
+// function dirReduc(arr){
+//   var count = 0;
+//   for (var i = 0; i < arr.length; i++) {
+//     if (arr[i] === "WEST" && arr[i+1] === "EAST" ||
+//         arr[i] === "EAST" && arr[i+1] === "WEST" ||
+//         arr[i] === "NORTH" && arr[i+1] === "SOUTH" ||
+//         arr[i] === "SOUTH" && arr[i+1] === "NORTH") {
+//         arr.splice(i, 2);
+//         count++;
+//         i--;
+//     }
+//   }
+//   return count === 0 ? arr : dirReduc(arr);
+// }
+
+
+// function dirReduc(arr){
+//   for(let i=0; i<arr.length; i++){
+//       switch ( arr[i] + arr[i+1] ){
+      
+//               case "EASTWEST":
+//               arr.splice(i,2);
+//               i = i - i -1;  // ( i = -1 ) => reset the loop to scan the array from i=0  
+//               break;
+         
+//               case "WESTEAST":
+//               arr.splice(i,2);
+//               i = i - i -1;
+//               break;
+         
+//               case "NORTHSOUTH":
+//               arr.splice(i,2);
+//               i = i - i -1;
+//               break;
+         
+//               case "SOUTHNORTH":
+//               arr.splice(i,2);
+//               i = i - i -1;
+//               break;
+//       }
+//   }
+//   return arr
+// }
+
+
+
 */
 
 // ==== Декораторы и переадресация вызова, call/apply ===
@@ -1745,6 +1971,8 @@ let rabbit = new Rabbit("Кроль");
 
 alert( rabbit.hasOwnProperty('name') ); // Ошибка
 */
+
+
 
 
 
