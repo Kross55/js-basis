@@ -1666,7 +1666,47 @@ console.log(dirReduc(directions))
 //   return arr
 // }
 
+// task 13
+// Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example:
 
+// * url = "http://github.com/carbonfive/raygun" -> domain name = "github"
+// * url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
+// * url = "https://www.cnet.com"                -> domain name = cnet"
+
+function domainName(str) {
+
+  if (str.includes('http://')) str = str.replace('http://', '');
+  if (str.includes('https://')) str = str.replace('https://', '');
+  if (str.includes('www.')) str = str.replace('www.', '')
+
+  let dot = str.indexOf('.')
+  if (str.includes('.')) str = str.slice(0, dot)
+
+  return str;
+}
+
+alert(domainName(str))
+
+//not my solutions
+// function domainName(url){
+//   url = url.replace("https://", '');
+//   url = url.replace("http://", '');
+//   url = url.replace("www.", '');
+//   return url.split('.')[0];
+// };
+
+// function domainName(url){
+//   return url.match(/(?:http(?:s)?:\/\/)?(?:w{3}\.)?([^\.]+)/i)[1];
+// }
+
+// "use strict";
+
+// function domainName(url) {
+
+//   url = url.toString().replace('https://', '').replace('http://', '').replace('www.', '');
+
+//   return url.split('.')[0];
+// }
 
 */
 
@@ -2120,13 +2160,8 @@ f();
 
 */
 
-let str = 'http://github.com/carbonefive/rainbaw'
 
-if (str.includes('http://')) str.replace('http://', '');
-// if (str.includes('www.')) str.replace('www.', '')
 
-alert(str)
-console.log((str.includes('http://')))
 
 
 
