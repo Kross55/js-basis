@@ -2303,7 +2303,12 @@ user.observe((key, value) => {
 user.name = "John";
 
  */
+let str = 'aabb'
 
+function permutations(str) {
+  
+	return [];
+}
 
 
 
