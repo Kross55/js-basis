@@ -6,23 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .message-ball {
-          font-size: 20px;
-          line-height: 200px;
-          text-align: center;
+        /* .message-ball {
+                  font-size: 20px;
+                  line-height: 200px;
+                  text-align: center;
+                }
+                .circle {
+                  transition-property: width, height;
+                  transition-duration: 2s;
+                  position: fixed;
+                  transform: translateX(-50%) translateY(-50%);
+                  background-color: red;
+                  border-radius: 50%;
+                }
+                .clock {
+                    display: flex; 
+                }
+                .hours {
+                    color: red
+                } */
+        /* * {
+                margin: 0;
+                padding: 0;
+            }
+        
+            #example {
+                width: 300px;
+                height: 200px;
+                overflow: auto;
+                border: 25px solid #E8C48F;
+                padding: 20px;
+            }
+        
+            .key {
+                cursor: pointer;
+                text-decoration: underline;
+            } */
+        /* #field {
+            width: 200px;
+            border: 10px groove black;
+            background-color: #00FF00;
+            position: relative;
         }
-        .circle {
-          transition-property: width, height;
-          transition-duration: 2s;
-          position: fixed;
-          transform: translateX(-50%) translateY(-50%);
-          background-color: red;
-          border-radius: 50%;
-        }
-      </style>
+    
+        #ball {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+        } */
+    </style>
 </head>
 <body>
-    <button onclick="go()">Нажми меня</button>
+    <!-- <button onclick="go()">Нажми меня</button>
 
     <script>
 
@@ -54,9 +89,9 @@
                 }, 0);
             })
         }
-    </script>
+    </script> -->
 
-    <a name="list">the list</a>
+    <!-- <a name="list">the list</a>
     <ul>
         <li><a href="http://google.com">http://google.com</a></li>
         <li><a href="/tutorial">/tutorial.html</a></li>
@@ -81,8 +116,408 @@
         console.log(links)
         links.forEach(link => link.style.color = 'orange');
 
+    </script> -->
+
+    <!-- <style>
+        .alert {
+            padding: 15px;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+            color: #3c763d;
+            background-color: #dff0d8;
+        }
+    </style>
+    
+    <script>
+        let div = document.createElement('div');
+        div.className = "alert";
+        div.innerHTML = "<strong>Всем привет!</strong> Вы прочитали важное сообщение.";
+
+        document.body.append(div);
+    </script> -->
+
+    <!-- <h1>Создать список</h1>
+
+    <script>
+        let ul = document.createElement('ul');
+        document.body.append(ul);
+
+        while (true) {
+            let data = prompt("Введите текст для элемента списка", "");
+
+            if (!data) {
+                break;
+            }
+
+            let li = document.createElement('li');
+            li.textContent = data;
+            ul.append(li);
+        }
+    </script> -->
+
+    <!-- <div id="container"></div>
+
+    <script>
+        let data = {
+            "Рыбы": {
+                "форель": {},
+                "лосось": {}
+            },
+
+            "Деревья": {
+                "Огромные": {
+                    "секвойя": {},
+                    "дуб": {}
+                },
+                "Цветковые": {
+                    "яблоня": {},
+                    "магнолия": {}
+                }
+            }
+        };
+
+        //   function createTree(container, obj) {
+        //     container.innerHTML = createTreeText(obj);
+        //   }
+
+        //   function createTreeText(obj) { // отдельная рекурсивная функция
+        //     let li = '';
+        //     let ul;
+        //     for (let key in obj) {
+        //       li += '<li>' + key + createTreeText(obj[key]) + '</li>';
+        //     }
+        //     if (li) {
+        //       ul = '<ul>' + li + '</ul>'
+        //     }
+        //     return ul || '';
+        //   }
+
+        //   createTree(container, data);
+
+        function createTree(container, obj) {
+            container.append(createTreeDom(obj));
+        }
+
+        function createTreeDom(obj) {
+            // если нет дочерних элементов, то вызов возвращает undefined
+            // и элемент <ul> не будет создан
+            if (!Object.keys(obj).length) return;
+
+            let ul = document.createElement('ul');
+
+            for (let key in obj) {
+                let li = document.createElement('li');
+                li.innerHTML = key;
+
+                let childrenUl = createTreeDom(obj[key]);
+                if (childrenUl) {
+                    li.append(childrenUl);
+                }
+
+                ul.append(li);
+            }
+
+            return ul;
+        }
+
+        let container = document.getElementById('container');
+        createTree(container, data);
+    </script> -->
+
+    <!-- <ul>
+        <li>Животные
+            <ul>
+                <li>Млекопитающие
+                    <ul>
+                        <li>Коровы</li>
+                        <li>Ослы</li>
+                        <li>Собаки</li>
+                        <li>Тигры</li>
+                    </ul>
+                </li>
+                <li>Другие
+                    <ul>
+                        <li>Змеи</li>
+                        <li>Птицы</li>
+                        <li>Ящерицы</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Рыбы
+            <ul>
+                <li>Аквариумные
+                    <ul>
+                        <li>Гуппи</li>
+                        <li>Скалярии</li>
+                    </ul>
+                </li>
+                <li>Морские
+                    <ul>
+                        <li>Морская форель</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+     Выведите список потомков в дереве
+важность: 5
+Есть дерево, организованное в виде вложенных списков ul/li.
+
+Напишите код, который добавит каждому элементу списка <li> количество вложенных в него элементов. Узлы нижнего уровня, без детей – пропускайте. 
+
+    <script>
+        let lis = document.getElementsByTagName('li');
+        console.log(lis)
+
+        for (let li of lis) {
+            // получить количество всех <li> ниже этого <li>
+            let descendantsCount = li.getElementsByTagName('li').length;
+            if (!descendantsCount) continue;
+
+            // добавить непосредственно к текстовому узлу (добавить к тексту)
+            li.firstChild.data += ' [' + descendantsCount + ']';
+        }
+    </script> -->
+
+    <!--     Создайте календарь в виде таблицы
+важность: 4
+Напишите функцию createCalendar(elem, year, month).
+
+Вызов функции должен создать календарь для заданного месяца month в году year и вставить его в elem.
+
+Календарь должен быть таблицей, где неделя – это <tr>, а день – это <td>. У таблицы должен быть заголовок с названиями дней недели, каждый день – <th>, первым днём недели должен быть понедельник.
+
+Например, createCalendar(cal, 2012, 9) сгенерирует в cal следующий календарь:
+
+Для решения задачи сгенерируем таблицу в виде строки: "<table>...</table>", а затем присвоим в innerHTML.
+
+Алгоритм:
+
+ - Создать заголовок таблицы с <th> и именами дней недели.
+ - Создать объект даты d = new Date(year, month-1). Это первый день месяца month (с учётом того, что месяцы в JS начинаются от 0, а не от 1).
+ - Ячейки первого ряда пустые от начала и до дня недели d.getDay(), с которого начинается месяц. Заполним <td></td>.
+ - Увеличить день в d: d.setDate(d.getDate()+1). Если d.getMonth() ещё не в следующем месяце, то добавим новую ячейку <td> в календарь. Если это воскресенье, то добавим новую строку «</tr><tr>».
+ - Если месяц закончился, но строка таблицы ещё не заполнена, добавим в неё пустые <td>, чтобы сделать в календаре красивые пустые квадратики. 
+        
+        
+        <style>
+        table {
+          border-collapse: collapse;
+        }
+    
+        td,
+        th {
+          border: 1px solid black;
+          padding: 3px;
+          text-align: center;
+        }
+    
+        th {
+          font-weight: bold;
+          background-color: #E6E6E6;
+        }
+    </style>
+   
+    
+    <body>
+    
+    
+      <div id="calendar"></div>
+    
+      <script>
+        function createCalendar(elem, year, month) {
+    
+          let mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+          let d = new Date(year, mon);
+    
+          let table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+    
+          // пробелы для первого ряда
+          // с понедельника до первого дня месяца
+          // * * * 1  2  3  4
+          for (let i = 0; i < getDay(d); i++) {
+            table += '<td></td>';
+          }
+    
+          // <td> ячейки календаря с датами
+          while (d.getMonth() == mon) {
+            table += '<td>' + d.getDate() + '</td>';
+    
+            if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+              table += '</tr><tr>';
+            }
+    
+            d.setDate(d.getDate() + 1);
+          }
+    
+          // добить таблицу пустыми ячейками, если нужно
+          // 29 30 31 * * * *
+          if (getDay(d) != 0) {
+            for (let i = getDay(d); i < 7; i++) {
+              table += '<td></td>';
+            }
+          }
+    
+          // закрыть таблицу
+          table += '</tr></table>';
+    
+          elem.innerHTML = table;
+        }
+    
+        function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
+          let day = date.getDay();
+          if (day == 0) day = 7; // сделать воскресенье (0) последним днем
+          return day - 1;
+        }
+    
+        createCalendar(calendar, 2022, 8);
+      </script> -->
+
+    <!-- Цветные часы с использованием setInterval
+
+    <div class="clock">
+        <div class="hours">hh</div>:
+        <div class="minutes">mm</div>:
+        <div class="seconds">ss</div>
+    </div>
+
+    <script>
+        function update() {
+            let clock = document.querySelector('.clock');
+            let date = new Date(); // (*)
+            let hours = date.getHours();
+            if (hours < 10) hours = '0' + hours;
+            clock.children[0].innerHTML = hours;
+
+            let minutes = date.getMinutes();
+            if (minutes < 10) minutes = '0' + minutes;
+            clock.children[1].innerHTML = minutes;
+
+            let seconds = date.getSeconds();
+            if (seconds < 10) seconds = '0' + seconds;
+            clock.children[2].innerHTML = seconds;
+        }
+
+        let timerId;
+
+        function clockStart() { // запустить часы
+            timerId = setInterval(update, 1000);
+            update(); // (*)
+        }
+
+        function clockStop() {
+            clearInterval(timerId);
+            timerId = null;
+        }
     </script>
 
+     клик по этой кнопке вызовет clockStart() 
+    <input type="button" onclick="clockStart()" value="Start">
+    
+     клик по этой кнопке вызовет clockStop() 
+    <input type="button" onclick="clockStop()" value="Stop"> -->
+
+    <!-- <ul id="ul">
+        <li id="one">1</li>
+        <li id="two">4</li>
+    </ul>
+
+    <script>
+        one.insertAdjacentHTML('afterend', '<li>2</li><li>3</li>'); 
+    </script> -->
+
+    <!-- <div id="example">
+        <h3>Introduction</h3>
+        <p>This Ecma Standard is based on several originating technologies, the most well known being JavaScript (Netscape)
+            and JScript (Microsoft). The language was invented by Brendan Eich at Netscape and first appeared in that
+            company's Navigator 2.0 browser.
+            It has appeared in all subsequent browsers from Netscape and in all browsers from Microsoft starting with
+            Internet Explorer 3.0. The development of this Standard started in November 1996. The first edition of this Ecma
+            Standard was adopted by the
+            Ecma General Assembly of June 1997.</p>
+    
+        <p>That Ecma Standard was submitted to ISO/IEC JTC 1 for adoption under the fast-track procedure, and approved as
+            international standard ISO/IEC 16262, in April 1998. The Ecma General Assembly of June 1998 approved the second
+            edition of ECMA-262 to keep
+            it fully aligned with ISO/IEC 16262. Changes between the first and the second edition are editorial in nature.
+        </p>
+    
+        <p>The third edition of the Standard introduced powerful regular expressions, better string handling, new control
+            statements, try/catch exception handling, tighter definition of errors, formatting for numeric output and minor
+            changes in anticipation
+            of forthcoming internationalisation facilities and future language growth. The third edition of the ECMAScript
+            standard was adopted by the Ecma General Assembly of December 1999 and published as ISO/IEC 16262:2002 in June
+            2002.</p>
+    
+    </div>
+    
+    
+    <div id="mouse-wrap">Координаты мыши: <span id="mouse">...</span></div>
+    <div id="info"></div>
+    
+    <script>
+        let props = {
+            geometry: ['clientLeft', 'clientTop', 'clientWidth', 'clientHeight', 'offsetWidth', 'offsetHeight', 'scrollWidth', 'scrollHeight'],
+            scroll: ['scrollLeft', 'scrollTop'],
+            offsetParent: ['offsetParent', 'offsetLeft', 'offsetTop']
+        };
+
+        info.innerHTML = '<h3>Click to see the value:</h3>';
+        for (let k in props) {
+            info.innerHTML += `<h4>${k}</h4>`;
+            let prop = props[k];
+            for (let i = 0; i < prop.length; i++) {
+                info.innerHTML += "<span class='key'>" + prop[i] + '</span>: <span id="' + prop[i] + '">&nbsp;</span>' + " "
+                i++;
+                if (i < prop.length) {
+                    info.innerHTML += "<span class='key'>" + prop[i] + '</span>: <span id="' + prop[i] + '">&nbsp;</span>';
+                }
+                info.innerHTML += "<br/>";
+
+            }
+        }
+
+        document.onclick = function (event) {
+            let target = event.target;
+            if (!target.classList.contains('key')) return;
+
+            let prop = target.innerHTML;
+            let value = example[prop];
+            value = value.tagName || value;
+            document.getElementById(prop).innerHTML = value;
+        };
+
+
+        document.onmousemove = function (e) {
+            document.getElementById('mouse').innerHTML = Math.round(e.clientX) + ':' + Math.round(e.clientY);
+        };
+    </script>
+
+    <script>
+        let elem = document.querySelector('#example');
+        let scrollBottom = elem.scrollHeight - elem.scrollTop - elem.clientHeight;
+        console.log(scrollBottom)
+        let scrollLineWidth = elem.offsetWidth - elem.clientWidth - elem.clientLeft*2
+        console.log(scrollLineWidth)
+    </script> -->
+  
+    <!-- <div id="field">
+        <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      </div>
+    
+      <script>
+        let elem = document.querySelector('#field')
+        let ball = document.querySelector('#ball')
+        let x = Math.round(elem.clientWidth / 2 - ball.offsetWidth / 2)
+        let y = Math.round(elem.clientHeight / 2 - ball.offsetHeight / 2)
+        console.log(x, y)
+        ball.style.left = `${x}px`;
+        ball.style.top = `${y}px`;
+      </script> -->
+    
     <script src="./main.js"></script>
 </body>
 </html>
