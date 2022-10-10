@@ -3,65 +3,186 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
+  <!-- 
+    //task2
+    <style>
+    table {
+       border-collapse: collapse;
+     }
+     th, td {
+       border: 1px solid black;
+       padding: 4px;
+     }
+     th {
+       cursor: pointer;
+     }
+     th:hover {
+       background: yellow;
+     }
+  </style> -->
 </head>
 
 <body>
 
-    <!-- создайте свою разметку со стилями -->
-
-    <div id="carousel" class="carousel">
-        <button class="arrow prev">⇦</button>
-        <div class="gallery">
-            <ul>
-                <li><img src="https://ru.js.cx/carousel/1.png"></li>
-                <li><img src="https://ru.js.cx/carousel/2.png"></li>
-                <li><img src="https://ru.js.cx/carousel/3.png"></li>
-                <li><img src="https://ru.js.cx/carousel/4.png"></li>
-                <li><img src="https://ru.js.cx/carousel/5.png"></li>
-                <li><img src="https://ru.js.cx/carousel/6.png"></li>
-                <li><img src="https://ru.js.cx/carousel/7.png"></li>
-                <li><img src="https://ru.js.cx/carousel/8.png"></li>
-                <li><img src="https://ru.js.cx/carousel/9.png"></li>
-                <li><img src="https://ru.js.cx/carousel/10.png"></li>
-            </ul>
-        </div>
-        <button class="arrow next">⇨</button>
+    <!-- 
+    //task1
+    <div id="container">
+    <div class="pane">
+      <h3>Лошадь</h3>
+      <p>Домашняя лошадь - животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+      <button class="remove-button">[x]</button>
     </div>
+    <div class="pane">
+      <h3>Осёл</h3>
+      <p>Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший важную историческую роль в развитии хозяйства и культуры человека. Все одомашненные ослы относятся к африканским ослам.</p>
+      <button class="remove-button">[x]</button>
+    </div>
+    <div class="pane">
+      <h3>Кошка</h3>
+      <p>Кошка, или домашняя кошка (лат. Félis silvéstris cátus), — домашнее животное, одно из наиболее популярных (наряду с собакой) "животных-компаньонов". С точки зрения научной систематики, домашняя кошка — млекопитающее семейства кошачьих отряда хищных. Ранее домашнюю кошку нередко рассматривали как отдельный биологический вид.
+      </p>
+      <button class="remove-button">[x]</button>
+    </div>
+  </div>
 
-    <script>
-        /* этот код помечает картинки, для удобства разработки */
-        let i = 1;
-        for (let li of carousel.querySelectorAll('li')) {
-            li.style.position = 'relative';
-            li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
-            i++;
+  <script>
+    let container = document.querySelector('#container')
+    container.onclick = function(event) {
+        let target = event.target
+        if(target.className != "remove-button") return;
+        target.closest('.pane').remove()
+    }
+  </script> -->
+
+    <!-- 
+    //task2
+    <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>Вася</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Петя</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Женя</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Маша</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Илья</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    let grid = document.querySelector('#grid')
+
+    grid.onclick = function(event) {
+        if(event.target.tagName != 'TH') return;
+        
+        let th = event.target;
+
+        sortTable(th.cellIndex, th.dataset.type)
+    }
+
+    function sortTable(colNum, type) {
+        let tbody = grid.querySelector('tbody');
+        let rowsArray = Array.from(tbody.rows);
+        
+        let compare;
+
+        switch (type) {
+            case 'number':
+                compare = (rowA, rowB) => rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML; 
+                break;
+            case 'string':
+                compare = (rowA, rowB) => rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML ? 1 : -1;
+                break;
         }
 
-        /* конфигурация */
-        let width = 130; // ширина картинки
-        let count = 3; // видимое количество изображений
+        rowsArray.sort(compare);
 
-        let list = carousel.querySelector('ul');
-        let listElems = carousel.querySelectorAll('li');
+        tbody.append(...rowsArray);
+        
+    }
+  </script> -->
 
-        let position = 0; // положение ленты прокрутки
+    <!-- 
+        //task3
+        
+        <ul class="tree" id="tree">
+        <li>Животные
+            <ul>
+                <li>Млекопитающие
+                    <ul>
+                        <li>Коровы</li>
+                        <li>Ослы</li>
+                        <li>Собаки</li>
+                        <li>Тигры</li>
+                    </ul>
+                </li>
+                <li>Другие
+                    <ul>
+                        <li>Змеи</li>
+                        <li>Птицы</li>
+                        <li>Ящерицы</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Рыбы
+            <ul>
+                <li>Аквариумные
+                    <ul>
+                        <li>Гуппи</li>
+                        <li>Скалярии</li>
+                    </ul>
+                </li>
+                <li>Морские
+                    <ul>
+                        <li>Морская форель</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
-        carousel.querySelector('.prev').onclick = function () {
-            // сдвиг влево
-            position += width * count;
-            // последнее передвижение влево может быть не на 3, а на 2 или 1 элемент
-            position = Math.min(position, 0)
-            list.style.marginLeft = position + 'px';
-        };
+    <script>
+        let tree = document.querySelector('.tree')
+        // поместить все текстовые узлы в элемент <span>
+        // он занимает только то место, которое необходимо для текста
+        for (let li of tree.querySelectorAll('li')) {
+            let span = document.createElement('span');
+            li.prepend(span);
+            span.append(span.nextSibling); // поместить текстовый узел внутрь элемента <span>
+        }
 
-        carousel.querySelector('.next').onclick = function () {
-            // сдвиг вправо
-            position -= width * count;
-            // последнее передвижение вправо может быть не на 3, а на 2 или 1 элемент
-            position = Math.max(position, -width * (listElems.length - count));
-            list.style.marginLeft = position + 'px';
-        };
-    </script>
+        //  ловим клики на всём дереве
+        tree.onclick = function (event) {
 
+            if (event.target.tagName != 'SPAN') {
+                return;
+            }
+
+            let childrenContainer = event.target.parentNode.querySelector('ul');
+            if (!childrenContainer) return; // нет детей
+
+            childrenContainer.hidden = !childrenContainer.hidden;
+        }
+
+    </script> -->
 </body>
 </html>
