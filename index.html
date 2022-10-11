@@ -1,188 +1,121 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
-  <!-- 
-    //task2
-    <style>
-    table {
-       border-collapse: collapse;
-     }
-     th, td {
-       border: 1px solid black;
-       padding: 4px;
-     }
-     th {
-       cursor: pointer;
-     }
-     th:hover {
-       background: yellow;
-     }
-  </style> -->
+  <style>
+    body {
+      height: 2000px;
+      /* подсказка должна работать и после прокрутки страницы */
+    }
+
+    .tooltip {
+      position: fixed;
+      z-index: 100;
+
+      padding: 10px 20px;
+
+      border: 1px solid #b3c9ce;
+      border-radius: 4px;
+      text-align: center;
+      font: italic 14px/1.3 sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    }
+
+    #house {
+      margin-top: 50px;
+      width: 400px;
+      border: 1px solid brown;
+    }
+
+    #roof {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 20px solid brown;
+      margin-top: -20px;
+    }
+
+    p {
+      text-align: justify;
+      margin: 10px 3px;
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- 
-    //task1
-    <div id="container">
-    <div class="pane">
-      <h3>Лошадь</h3>
-      <p>Домашняя лошадь - животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
-      <button class="remove-button">[x]</button>
-    </div>
-    <div class="pane">
-      <h3>Осёл</h3>
-      <p>Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший важную историческую роль в развитии хозяйства и культуры человека. Все одомашненные ослы относятся к африканским ослам.</p>
-      <button class="remove-button">[x]</button>
-    </div>
-    <div class="pane">
-      <h3>Кошка</h3>
-      <p>Кошка, или домашняя кошка (лат. Félis silvéstris cátus), — домашнее животное, одно из наиболее популярных (наряду с собакой) "животных-компаньонов". С точки зрения научной систематики, домашняя кошка — млекопитающее семейства кошачьих отряда хищных. Ранее домашнюю кошку нередко рассматривали как отдельный биологический вид.
-      </p>
-      <button class="remove-button">[x]</button>
-    </div>
+
+  <div data-tooltip="Здесь домашний интерьер" id="house">
+    <div data-tooltip="Здесь крыша" id="roof"></div>
+
+    <p>Жили-были на свете три поросенка. Три брата. Все одинакового роста, кругленькие, розовые, с одинаковыми веселыми хвостиками.</p>
+
+    <p>Даже имена у них были похожи. Звали поросят: Ниф-Ниф, Нуф-Нуф и Наф-Наф. Все лето они кувыркались в зеленой траве, грелись на солнышке, нежились в лужах.</p>
+
+    <p>Но вот наступила осень. Солнце уже не так сильно припекало, серые облака тянулись над пожелтевшим лесом.</p>
+
+    <p>- Пора нам подумать о зиме, - сказал как-то Наф-Наф. <a href="https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B8_%D0%BF%D0%BE%D1%80%D0%BE%D1%81%D1%91%D0%BD%D0%BA%D0%B0" data-tooltip="Читать далее…">Наведи курсор на меня</a></p>
+
   </div>
 
   <script>
-    let container = document.querySelector('#container')
-    container.onclick = function(event) {
-        let target = event.target
-        if(target.className != "remove-button") return;
-        target.closest('.pane').remove()
-    }
-  </script> -->
+    let tooltip;
 
-    <!-- 
-    //task2
-    <table id="grid">
-    <thead>
-      <tr>
-        <th data-type="number">Возраст</th>
-        <th data-type="string">Имя</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>5</td>
-        <td>Вася</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Петя</td>
-      </tr>
-      <tr>
-        <td>12</td>
-        <td>Женя</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>Маша</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Илья</td>
-      </tr>
-    </tbody>
-  </table>
+    document.onmouseover = function (event) {
+      // важно: быстро движущийся курсор может прыгнуть сразу к дочернему элементу, пропустив родительский
+      // так что событие mouseover произойдёт сразу на дочернем элементе.
 
-  <script>
-    let grid = document.querySelector('#grid')
+      let anchorElem = event.target.closest('[data-tooltip]');
 
-    grid.onclick = function(event) {
-        if(event.target.tagName != 'TH') return;
-        
-        let th = event.target;
+      if (!anchorElem) return;
 
-        sortTable(th.cellIndex, th.dataset.type)
+      // показываем подсказку и запоминаем её
+      tooltip = showTooltip(anchorElem, anchorElem.dataset.tooltip);
     }
 
-    function sortTable(colNum, type) {
-        let tbody = grid.querySelector('tbody');
-        let rowsArray = Array.from(tbody.rows);
-        
-        let compare;
+    document.onmouseout = function () {
+      // возможно такое, что произошло событие mouseout, но мы всё ещё внутри элемента
+      // (оно было где-то внутри и всплыло)
+      // но в этом случае сразу же последует событие mouseover,
+      // то есть подсказка исчезнет и потом снова покажется
+      //
+      // к счастью, этого не будет видно,
+      // так как оба события происходят почти одновременно
+      if (tooltip) {
+        tooltip.remove();
+        tooltip = null;
+      }
 
-        switch (type) {
-            case 'number':
-                compare = (rowA, rowB) => rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML; 
-                break;
-            case 'string':
-                compare = (rowA, rowB) => rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML ? 1 : -1;
-                break;
-        }
-
-        rowsArray.sort(compare);
-
-        tbody.append(...rowsArray);
-        
     }
-  </script> -->
 
-    <!-- 
-        //task3
-        
-        <ul class="tree" id="tree">
-        <li>Животные
-            <ul>
-                <li>Млекопитающие
-                    <ul>
-                        <li>Коровы</li>
-                        <li>Ослы</li>
-                        <li>Собаки</li>
-                        <li>Тигры</li>
-                    </ul>
-                </li>
-                <li>Другие
-                    <ul>
-                        <li>Змеи</li>
-                        <li>Птицы</li>
-                        <li>Ящерицы</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>Рыбы
-            <ul>
-                <li>Аквариумные
-                    <ul>
-                        <li>Гуппи</li>
-                        <li>Скалярии</li>
-                    </ul>
-                </li>
-                <li>Морские
-                    <ul>
-                        <li>Морская форель</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
 
-    <script>
-        let tree = document.querySelector('.tree')
-        // поместить все текстовые узлы в элемент <span>
-        // он занимает только то место, которое необходимо для текста
-        for (let li of tree.querySelectorAll('li')) {
-            let span = document.createElement('span');
-            li.prepend(span);
-            span.append(span.nextSibling); // поместить текстовый узел внутрь элемента <span>
-        }
+    function showTooltip(anchorElem, html) {
+      let tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = html;
+      document.body.append(tooltipElem);
 
-        //  ловим клики на всём дереве
-        tree.onclick = function (event) {
+      let coords = anchorElem.getBoundingClientRect();
 
-            if (event.target.tagName != 'SPAN') {
-                return;
-            }
+      // позиционируем подсказку над центром элемента
+      let left = coords.left + (anchorElem.offsetWidth - tooltipElem.offsetWidth) / 2;
+      if (left < 0) left = 0;
 
-            let childrenContainer = event.target.parentNode.querySelector('ul');
-            if (!childrenContainer) return; // нет детей
+      let top = coords.top - tooltipElem.offsetHeight - 5;
+      if (top < 0) {
+        top = coords.top + anchorElem.offsetHeight + 5;
+      }
 
-            childrenContainer.hidden = !childrenContainer.hidden;
-        }
+      tooltipElem.style.left = left + 'px';
+      tooltipElem.style.top = top + 'px';
 
-    </script> -->
+      return tooltipElem;
+    }
+  </script>
+
 </body>
 </html>
